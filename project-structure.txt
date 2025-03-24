@@ -1,0 +1,20 @@
+agentic-services-platform/
+├── client/                 # Frontend React application
+│   ├── src/
+│   │   ├── components/    # Reusable UI components
+│   │   ├── pages/        # Main application pages
+│   │   ├── services/     # API integration services
+│   │   ├── context/      # React context providers
+│   │   └── utils/        # Helper functions
+│   ├── public/
+│   └── package.json
+├── server/                # Backend Node.js application
+│   ├── src/
+│   │   ├── controllers/  # Request handlers
+│   │   ├── models/       # Database models
+│   │   ├── routes/       # API routes
+│   │   ├── services/     # Business logic
+│   │   └── utils/        # Helper functions
+│   └── package.json
+├── docker-compose.yml
+└── README.md
