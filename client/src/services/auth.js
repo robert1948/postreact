@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://your-heroku-app.herokuapp.com/api/auth'
+  : 'http://localhost:5000/api/auth';
 
 export const authService = {
   async login(credentials) {

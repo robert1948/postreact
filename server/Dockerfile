@@ -2,11 +2,20 @@ FROM node:16
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy the entire project
+COPY . .
 
+# Install server dependencies
+WORKDIR /app/server
 RUN npm install
 
-COPY . .
+# Install and build client
+WORKDIR /app/client
+RUN npm install
+RUN npm run build
+
+# Back to server directory
+WORKDIR /app/server
 
 # Heroku dynamically assigns port
 ENV PORT=5000

@@ -6,10 +6,10 @@ const connectionString = process.env.DATABASE_URL;
 
 const pool = new Pool({
   connectionString,
-  ssl: {
+  ssl: isProduction ? {
     rejectUnauthorized: false,
     require: true
-  }
+  } : false
 });
 
 module.exports = pool;

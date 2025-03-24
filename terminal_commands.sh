@@ -1,21 +1,15 @@
-# Navigate to your project root directory
+
+# Make sure you're in the project root directory
 cd /media/robert/Linux012/postreact
 
-# First, remove all Git-related files and directories
-rm -rf .git
-rm -rf client/.git
-rm -rf server/.git
-rm -f .gitmodules
+# Build the Docker image
+docker build -t postreact -f server/Dockerfile .
 
-# Initialize a new Git repository
-git init
+# Push to Heroku
+heroku container:push web --app postreact
 
-# Ensure the directories are not treated as submodules
-git config -f .git/config --remove-section submodule.client 2>/dev/null || true
-git config -f .git/config --remove-section submodule.server 2>/dev/null || true
+# Release the container
+heroku container:release web --app postreact
 
-# Add all files
-git add .
-
-# Create initial commit
-git commit -m "Initial commit"
+# Check the logs
+heroku logs --tail --app postreact
