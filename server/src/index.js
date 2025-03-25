@@ -13,10 +13,15 @@ app.use('/api/auth', authRoutes);
 
 // Serve static files from the React build
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../client/build')));
+  const clientBuildPath = path.resolve('/app/client/build');
+  console.log('Looking for client build at:', clientBuildPath);
+  
+  app.use(express.static(clientBuildPath));
   
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+    const indexPath = path.join(clientBuildPath, 'index.html');
+    console.log('Serving index.html from:', indexPath);
+    res.sendFile(indexPath);
   });
 }
 

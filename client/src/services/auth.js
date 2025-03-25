@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://your-heroku-app.herokuapp.com/api/auth'
+  ? '/api/auth'  // Use relative URL in production
   : 'http://localhost:5000/api/auth';
 
 export const authService = {
