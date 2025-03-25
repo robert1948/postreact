@@ -1,24 +1,33 @@
+FROM node:16 as build
+
+WORKDIR /app
+
+# Copy client package files and install dependencies
+COPY ./client/package*.json ./client/
+RUN cd client && npm install
+
+# Copy client source code and build
+COPY ./client ./client
+RUN cd client && npm run build
+
+# Server stage
 FROM node:16
 
 WORKDIR /app
 
-# Copy the entire project
-COPY . .
-
-# Install server dependencies
-WORKDIR /app/server
+# Copy package.json and install dependencies
+COPY ./server/package*.json ./
 RUN npm install
 
-# Install and build client
-WORKDIR /app/client
-RUN npm install
-RUN npm run build
+# Copy server files
+COPY ./server .
 
-# Back to server directory
-WORKDIR /app/server
+# Copy client build from build stage
+COPY --from=build /app/client/build ./client/build
 
-# Heroku dynamically assigns port
+# Set environment variables
 ENV PORT=5000
+ENV NODE_ENV=production
 
 EXPOSE $PORT
 

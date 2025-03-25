@@ -14,7 +14,9 @@ services:
     user: "1000:1000"
 
   server:
-    build: ./server
+    build:
+      context: .
+      dockerfile: server/Dockerfile
     ports:
       - "5000:5000"
     depends_on:
