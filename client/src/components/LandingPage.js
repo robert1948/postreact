@@ -1,179 +1,74 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import authService from '../services/auth';
+import React from 'react';
+import Header from './Header';
+import Login from './Login';
+import FeatureSection from './FeatureSection';
+import Footer from './Footer';
 import './LandingPage.css';
 
 const LandingPage = () => {
-  const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: ''
-  });
-  const [validationErrors, setValidationErrors] = useState({});
-
-  const validateForm = () => {
-    const errors = {};
-    
-    if (!formData.email) {
-      errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Invalid email format';
-    }
-
-    if (!formData.password) {
-      errors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters';
-    }
-
-    if (!isLogin && !formData.name) {
-      errors.name = 'Name is required';
-    }
-
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsLoading(true);
-    
-    try {
-      const response = isLogin 
-        ? await authService.login(formData)
-        : await authService.register(formData);
-      
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.response?.data?.message || 'An error occurred');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear validation error when user starts typing
-    if (validationErrors[name]) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
 
   return (
     <div className="landing-page">
+      <Header />
+
       <div className="hero-section">
-        <h1>Welcome to Agentic Services Platform</h1>
+        <h1>Welcome to PostReact</h1>
         <p>Democratizing access to advanced AI capabilities</p>
-      </div>
-
-      <div className="auth-container">
-        <div className="auth-tabs">
-          <button 
-            className={isLogin ? 'active' : ''} 
-            onClick={() => {
-              setIsLogin(true);
-              setError('');
-              setValidationErrors({});
-            }}
-            disabled={isLoading}
-          >
-            Login
-          </button>
-          <button 
-            className={!isLogin ? 'active' : ''} 
-            onClick={() => {
-              setIsLogin(false);
-              setError('');
-              setValidationErrors({});
-            }}
-            disabled={isLoading}
-          >
-            Register
-          </button>
+        <div className="hero-buttons">
+          <a href="#features" className="btn-primary">Explore Features</a>
+          <a href="#login" className="btn-secondary">Get Started</a>
         </div>
-
-        {error && <div className="error-message">{error}</div>}
-
-        <form onSubmit={handleSubmit} className="auth-form">
-          {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required={!isLogin}
-                placeholder="Enter your name"
-                disabled={isLoading}
-              />
-              {validationErrors.name && (
-                <span className="validation-error">{validationErrors.name}</span>
-              )}
-            </div>
-          )}
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter your email"
-              disabled={isLoading}
-            />
-            {validationErrors.email && (
-              <span className="validation-error">{validationErrors.email}</span>
-            )}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Enter your password"
-              disabled={isLoading}
-            />
-            {validationErrors.password && (
-              <span className="validation-error">{validationErrors.password}</span>
-            )}
-          </div>
-
-          <button 
-            type="submit" 
-            className={`submit-button ${isLoading ? 'loading' : ''}`}
-            disabled={isLoading}
-          >
-            {isLoading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
-          </button>
-        </form>
       </div>
+
+      <FeatureSection />
+
+      <section id="about" className="about-section">
+        <h2>About Our Platform</h2>
+        <p className="section-subtitle">Learn how we're changing the game</p>
+        <div className="about-content">
+          <div className="about-text">
+            <p>PostReact is a cutting-edge platform designed to make advanced AI capabilities accessible to everyone. Our mission is to democratize access to powerful tools that were previously only available to large enterprises.</p>
+            <p>With our intuitive interface and powerful backend, you can leverage the latest in AI technology without needing a PhD in machine learning.</p>
+          </div>
+          <div className="about-image">
+            <div className="image-placeholder">Platform Screenshot</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="login" className="login-section">
+        <h2>Get Started Today</h2>
+        <p className="section-subtitle">Create an account or log in to access our platform</p>
+        <Login />
+      </section>
+
+      <section id="contact" className="contact-section">
+        <h2>Contact Us</h2>
+        <p className="section-subtitle">Have questions? We're here to help</p>
+        <div className="contact-info">
+          <div className="contact-item">
+            <div className="contact-icon">📧</div>
+            <h3>Email</h3>
+            <p>info@postreact.com</p>
+          </div>
+          <div className="contact-item">
+            <div className="contact-icon">📱</div>
+            <h3>Phone</h3>
+            <p>+1 (123) 456-7890</p>
+          </div>
+          <div className="contact-item">
+            <div className="contact-icon">🌐</div>
+            <h3>Social</h3>
+            <div className="social-links">
+              <a href="#" className="social-link">Twitter</a>
+              <a href="#" className="social-link">LinkedIn</a>
+              <a href="#" className="social-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 };
