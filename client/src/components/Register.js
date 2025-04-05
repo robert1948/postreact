@@ -10,7 +10,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [userCode, setUserCode] = useState('');
-  
+
   // Form data state
   const [formData, setFormData] = useState({
     email: '',
@@ -19,7 +19,7 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   });
-  
+
   // Validation errors state
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -40,7 +40,7 @@ const Register = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear validation error when user starts typing
     if (validationErrors[name]) {
       setValidationErrors(prev => ({
@@ -48,7 +48,7 @@ const Register = () => {
         [name]: ''
       }));
     }
-    
+
     // Check password strength if password field is changed
     if (name === 'password') {
       checkPasswordStrength(value);
@@ -62,7 +62,7 @@ const Register = () => {
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    
+
     // Calculate score (0-5)
     let score = 0;
     if (hasMinLength) score++;
@@ -70,7 +70,7 @@ const Register = () => {
     if (hasLowercase) score++;
     if (hasNumber) score++;
     if (hasSpecialChar) score++;
-    
+
     setPasswordStrength({
       score,
       hasMinLength,
@@ -84,40 +84,40 @@ const Register = () => {
   // Validate form data
   const validateForm = () => {
     const errors = {};
-    
+
     // Email validation
     if (!formData.email) {
       errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'Invalid email format';
     }
-    
+
     // Mobile validation
     if (!formData.mobile) {
       errors.mobile = 'Mobile number is required';
     } else if (!/^\d{10}$/.test(formData.mobile.replace(/[^0-9]/g, ''))) {
       errors.mobile = 'Mobile number must be 10 digits';
     }
-    
+
     // Username validation
     if (!formData.username) {
       errors.username = 'Username is required';
     } else if (formData.username.length < 3) {
       errors.username = 'Username must be at least 3 characters';
     }
-    
+
     // Password validation
     if (!formData.password) {
       errors.password = 'Password is required';
     } else if (passwordStrength.score < 3) {
       errors.password = 'Password is too weak';
     }
-    
+
     // Confirm password validation
     if (formData.password !== formData.confirmPassword) {
       errors.confirmPassword = 'Passwords do not match';
     }
-    
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -126,24 +126,24 @@ const Register = () => {
   const handleSubmitStep1 = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       // Send registration data to server and get verification code
       const response = await authService.requestVerification({
         email: formData.email,
         mobile: formData.mobile
       });
-      
+
       // In a real app, the code would be sent to the user's email/phone
       // For demo purposes, we'll store it in state
       setVerificationCode(response.verificationCode);
-      
+
       // Move to step 2
       setStep(2);
     } catch (error) {
@@ -157,18 +157,22 @@ const Register = () => {
   const handleVerifyCode = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (!userCode) {
       setError('Please enter the verification code');
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
-      // In a real app, this would be verified on the server
-      // For demo purposes, we'll compare it directly
-      if (userCode === verificationCode) {
+      // Verify the code with the server
+      const verifyResponse = await authService.verifyCode({
+        email: formData.email,
+        code: userCode
+      });
+
+      if (verifyResponse.success) {
         // Register the user
         await authService.register({
           email: formData.email,
@@ -176,11 +180,11 @@ const Register = () => {
           username: formData.username,
           password: formData.password
         });
-        
+
         // Move to success step
         setStep(3);
       } else {
-        setError('Invalid verification code');
+        setError('Verification failed');
       }
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred');
@@ -197,10 +201,10 @@ const Register = () => {
   // Render password strength indicators
   const renderPasswordStrength = () => {
     const { score, hasMinLength, hasUppercase, hasLowercase, hasNumber, hasSpecialChar } = passwordStrength;
-    
+
     let strengthClass = '';
     let strengthText = '';
-    
+
     if (score === 0) {
       strengthClass = '';
       strengthText = '';
@@ -214,14 +218,14 @@ const Register = () => {
       strengthClass = 'strong';
       strengthText = 'Strong';
     }
-    
+
     return (
       <div className="password-strength">
         <div className="strength-meter">
           <div className={`strength-bar ${strengthClass}`} style={{ width: `${score * 20}%` }}></div>
         </div>
         {strengthText && <span className={`strength-text ${strengthClass}`}>{strengthText}</span>}
-        
+
         <ul className="strength-requirements">
           <li className={hasMinLength ? 'met' : ''}>At least 8 characters</li>
           <li className={hasUppercase ? 'met' : ''}>At least one uppercase letter</li>
@@ -238,9 +242,9 @@ const Register = () => {
     <form onSubmit={handleSubmitStep1} className="register-form">
       <h2>Create Your Account</h2>
       <p className="form-description">Please fill in the details below to get started.</p>
-      
+
       {error && <div className="error-message">{error}</div>}
-      
+
       <div className="form-group">
         <label htmlFor="email">Email Address</label>
         <input
@@ -256,7 +260,7 @@ const Register = () => {
           <span className="validation-error">{validationErrors.email}</span>
         )}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="mobile">Mobile Number</label>
         <input
@@ -272,7 +276,7 @@ const Register = () => {
           <span className="validation-error">{validationErrors.mobile}</span>
         )}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="username">Username</label>
         <input
@@ -288,7 +292,7 @@ const Register = () => {
           <span className="validation-error">{validationErrors.username}</span>
         )}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="password">Password</label>
         <input
@@ -305,7 +309,7 @@ const Register = () => {
         )}
         {formData.password && renderPasswordStrength()}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
@@ -321,15 +325,15 @@ const Register = () => {
           <span className="validation-error">{validationErrors.confirmPassword}</span>
         )}
       </div>
-      
-      <button 
-        type="submit" 
+
+      <button
+        type="submit"
         className={`submit-button ${isLoading ? 'loading' : ''}`}
         disabled={isLoading}
       >
         {isLoading ? 'Please wait...' : 'Continue'}
       </button>
-      
+
       <div className="form-footer">
         <p>Already have an account? <a href="/login">Log in</a></p>
       </div>
@@ -344,9 +348,9 @@ const Register = () => {
         We've sent a verification code to your email and mobile number.
         Please enter the code below to verify your account.
       </p>
-      
+
       {error && <div className="error-message">{error}</div>}
-      
+
       <div className="form-group">
         <label htmlFor="verificationCode">Verification Code</label>
         <input
@@ -358,15 +362,15 @@ const Register = () => {
           disabled={isLoading}
         />
       </div>
-      
-      <button 
-        type="submit" 
+
+      <button
+        type="submit"
         className={`submit-button ${isLoading ? 'loading' : ''}`}
         disabled={isLoading}
       >
         {isLoading ? 'Verifying...' : 'Verify Code'}
       </button>
-      
+
       <div className="form-footer">
         <p>Didn't receive a code? <button type="button" className="text-button">Resend Code</button></p>
       </div>
@@ -379,8 +383,8 @@ const Register = () => {
       <div className="success-icon">✓</div>
       <h2>Registration Successful!</h2>
       <p>Your account has been created successfully.</p>
-      <button 
-        onClick={handleComplete} 
+      <button
+        onClick={handleComplete}
         className="submit-button"
       >
         Go to Dashboard
@@ -420,9 +424,9 @@ const Register = () => {
           <div className="step-label">Complete</div>
         </div>
       </div>
-      
+
       {renderStep()}
-      
+
       <div className="help-section">
         <h3>Need Help?</h3>
         <p>If you're having trouble registering, please check our <a href="/faq">FAQ</a> or <a href="/contact">contact support</a>.</p>
