@@ -1,0 +1,311 @@
+.register-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.register-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-number {
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+}
+
+.step-label {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-label {
+  color: white;
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.5rem;
+  position: relative;
+  top: -15px;
+  z-index: 0;
+}
+
+.register-form,
+.verification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.register-form h2,
+.verification-form h2,
+.success-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.form-description {
+  color: #a0aec0;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.validation-error {
+  color: #ff4444;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.submit-button {
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.submit-button.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 1rem;
+  color: #a0aec0;
+}
+
+.form-footer a,
+.text-button {
+  color: #6366f1;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+}
+
+.form-footer a:hover,
+.text-button:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff4444;
+  padding: 0.75rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Password strength meter */
+.password-strength {
+  margin-top: 0.5rem;
+}
+
+.strength-meter {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.strength-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.strength-bar.weak {
+  background-color: #ff4444;
+}
+
+.strength-bar.medium {
+  background-color: #ffbb33;
+}
+
+.strength-bar.strong {
+  background-color: #00C851;
+}
+
+.strength-text {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.strength-text.weak {
+  color: #ff4444;
+}
+
+.strength-text.medium {
+  color: #ffbb33;
+}
+
+.strength-text.strong {
+  color: #00C851;
+}
+
+.strength-requirements {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: #a0aec0;
+}
+
+.strength-requirements li {
+  margin-bottom: 0.25rem;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.strength-requirements li:before {
+  content: "○";
+  position: absolute;
+  left: 0;
+}
+
+.strength-requirements li.met {
+  color: #00C851;
+}
+
+.strength-requirements li.met:before {
+  content: "✓";
+}
+
+/* Verification code input */
+.verification-form input {
+  text-align: center;
+  letter-spacing: 0.5rem;
+  font-size: 1.5rem;
+}
+
+/* Success container */
+.success-container {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.success-container p {
+  color: #a0aec0;
+  margin-bottom: 2rem;
+}
+
+/* Help section */
+.help-section {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.help-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.help-section p {
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.help-section a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.help-section a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .step-label {
+    display: none;
+  }
+}

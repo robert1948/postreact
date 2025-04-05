@@ -9,16 +9,16 @@ class User {
   }
 
   static async create(userData) {
-    const { email, password, name } = userData;
+    const { email, password, name, mobile } = userData;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const query = `
-      INSERT INTO users (email, password, name, subscription, credits, created_at)
-      VALUES ($1, $2, $3, $4, $5, NOW())
+      INSERT INTO users (email, password, name, mobile, subscription, credits, created_at)
+      VALUES ($1, $2, $3, $4, $5, $6, NOW())
       RETURNING *
     `;
 
-    const values = [email, hashedPassword, name, 'free', 0];
+    const values = [email, hashedPassword, name, mobile || '', 'free', 0];
     const result = await pool.query(query, values);
     return result.rows[0];
   }

@@ -27,6 +27,7 @@ const initializeDatabase = async () => {
         email VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         name VARCHAR(255) NOT NULL,
+        mobile VARCHAR(20),
         subscription VARCHAR(50) DEFAULT 'free',
         credits INTEGER DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

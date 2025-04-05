@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
+import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/dashboard"
             element={

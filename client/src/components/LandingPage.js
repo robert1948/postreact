@@ -12,11 +12,11 @@ const LandingPage = () => {
       <Header />
 
       <div className="hero-section">
-        <h1>Welcome to PostReact</h1>
+        <h1>Welcome to CapeControl</h1>
         <p>Democratizing access to advanced AI capabilities</p>
         <div className="hero-buttons">
           <a href="#features" className="btn-primary">Explore Features</a>
-          <a href="#login" className="btn-secondary">Get Started</a>
+          <a href="/register" className="btn-secondary">Register Now</a>
         </div>
       </div>
 
