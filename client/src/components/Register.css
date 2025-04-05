@@ -94,16 +94,35 @@
 
 .form-group input {
   padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  color: white !important; /* Force white text color */
   font-size: 1rem;
+  caret-color: white; /* Ensures the cursor is visible */
+  -webkit-text-fill-color: white; /* For WebKit browsers */
+  opacity: 1; /* Required for Firefox */
 }
 
 .form-group input:focus {
   outline: none;
   border-color: #6366f1;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+/* Style for autofill */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(30, 30, 30, 0.8) inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .validation-error {
@@ -304,7 +323,7 @@
     padding: 1.5rem;
     margin: 1rem;
   }
-  
+
   .step-label {
     display: none;
   }
