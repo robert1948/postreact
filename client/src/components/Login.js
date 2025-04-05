@@ -17,7 +17,7 @@ const Login = () => {
 
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.email) {
       errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -47,12 +47,13 @@ const Login = () => {
     }
 
     setIsLoading(true);
-    
+
     try {
-      const response = isLogin 
-        ? await authService.login(formData)
-        : await authService.register(formData);
-      
+      // Call the authentication service and navigate on success
+      await (isLogin
+        ? authService.login(formData)
+        : authService.register(formData));
+
       navigate('/dashboard');
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred');
@@ -79,8 +80,8 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-tabs">
-        <button 
-          className={isLogin ? 'active' : ''} 
+        <button
+          className={isLogin ? 'active' : ''}
           onClick={() => {
             setIsLogin(true);
             setError('');
@@ -90,8 +91,8 @@ const Login = () => {
         >
           Login
         </button>
-        <button 
-          className={!isLogin ? 'active' : ''} 
+        <button
+          className={!isLogin ? 'active' : ''}
           onClick={() => {
             setIsLogin(false);
             setError('');
@@ -159,8 +160,8 @@ const Login = () => {
           )}
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={`submit-button ${isLoading ? 'loading' : ''}`}
           disabled={isLoading}
         >

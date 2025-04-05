@@ -60,9 +60,9 @@ const LandingPage = () => {
             <div className="contact-icon">🌐</div>
             <h3>Social</h3>
             <div className="social-links">
-              <a href="#" className="social-link">Twitter</a>
-              <a href="#" className="social-link">LinkedIn</a>
-              <a href="#" className="social-link">GitHub</a>
+              <a href="https://twitter.com" className="social-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+              <a href="https://linkedin.com" className="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://github.com" className="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </div>
         </div>
