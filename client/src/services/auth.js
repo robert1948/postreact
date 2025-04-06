@@ -33,9 +33,22 @@ export const authService = {
 
   async requestVerification(userData) {
     // Send the verification request to the server
-    const response = await axios.post(`${API_URL}/request-verification`, userData);
-    console.log('Server response:', response.data);
-    return response.data;
+    try {
+      const response = await axios.post(`${API_URL}/request-verification`, userData);
+      console.log('Server response:', response.data);
+
+      // Check if the verification code is in the response
+      if (response.data && response.data.verificationCode) {
+        console.log('Verification code received:', response.data.verificationCode);
+      } else {
+        console.error('No verification code in response:', response.data);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error('Error requesting verification:', error);
+      throw error;
+    }
   },
 
   async verifyCode(verificationData) {

@@ -140,13 +140,25 @@ const Register = () => {
         mobile: formData.mobile
       });
 
+      console.log('Registration response:', response);
+
       // In a real app, the code would be sent to the user's email/phone
       // For demo purposes, we'll store it in state
-      setVerificationCode(response.verificationCode);
+      if (response && response.verificationCode) {
+        setVerificationCode(response.verificationCode);
+        console.log('Verification code set in state:', response.verificationCode);
 
-      // Move to step 2
-      setStep(2);
+        // Display the code to the user (for demo purposes only)
+        alert(`For demo purposes, your verification code is: ${response.verificationCode}\n\nIn a real app, this would be sent to your email or phone.`);
+
+        // Move to step 2
+        setStep(2);
+      } else {
+        console.error('No verification code in response');
+        setError('Failed to get verification code. Please try again.');
+      }
     } catch (error) {
+      console.error('Registration error:', error);
       setError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
@@ -158,6 +170,9 @@ const Register = () => {
     e.preventDefault();
     setError('');
 
+    console.log('Submitting verification code:', userCode);
+    console.log('Expected verification code:', verificationCode);
+
     if (!userCode) {
       setError('Please enter the verification code');
       return;
@@ -165,14 +180,47 @@ const Register = () => {
 
     setIsLoading(true);
 
+    // For demo purposes, also allow direct comparison with the code in state
+    if (userCode === verificationCode) {
+      console.log('Verification code matches directly!');
+
+      try {
+        // Register the user
+        await authService.register({
+          email: formData.email,
+          mobile: formData.mobile,
+          username: formData.username,
+          password: formData.password
+        });
+
+        // Move to success step
+        setStep(3);
+        return;
+      } catch (error) {
+        console.error('Registration error after direct verification:', error);
+        setError(error.response?.data?.message || 'An error occurred during registration');
+        setIsLoading(false);
+        return;
+      }
+    }
+
     try {
       // Verify the code with the server
+      console.log('Sending verification code to server:', {
+        email: formData.email,
+        code: userCode
+      });
+
       const verifyResponse = await authService.verifyCode({
         email: formData.email,
         code: userCode
       });
 
+      console.log('Verification response:', verifyResponse);
+
       if (verifyResponse.success) {
+        console.log('Server verification successful');
+
         // Register the user
         await authService.register({
           email: formData.email,
@@ -184,9 +232,11 @@ const Register = () => {
         // Move to success step
         setStep(3);
       } else {
+        console.error('Server verification failed');
         setError('Verification failed');
       }
     } catch (error) {
+      console.error('Verification error:', error);
       setError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
