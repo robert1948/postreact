@@ -33,6 +33,25 @@ const initializeDatabase = async () => {
       // Table exists, check for missing columns
       console.log('Users table exists, checking for missing columns...');
 
+      // Check if mobile column exists
+      const mobileColumnExists = await client.query(`
+        SELECT EXISTS (
+          SELECT FROM information_schema.columns
+          WHERE table_schema = 'public'
+          AND table_name = 'users'
+          AND column_name = 'mobile'
+        );
+      `);
+
+      if (!mobileColumnExists.rows[0].exists) {
+        // Add mobile column
+        console.log('Adding mobile column to users table...');
+        await client.query(`
+          ALTER TABLE users
+          ADD COLUMN IF NOT EXISTS mobile VARCHAR(20)
+        `);
+      }
+
       // Check if provider column exists
       const providerColumnExists = await client.query(`
         SELECT EXISTS (
@@ -73,6 +92,8 @@ const initializeDatabase = async () => {
           last_login TIMESTAMP
         )
       `);
+
+      console.log('Users table created with all required columns.');
     }
 
     // Add provider and provider_id index if columns exist
