@@ -17,6 +17,7 @@ const LandingPage = () => {
         <div className="hero-buttons">
           <a href="#features" className="btn-primary">Explore Features</a>
           <a href="/register" className="btn-secondary">Register Now</a>
+          <a href="/login" className="btn-tertiary">Login</a>
         </div>
       </div>
 

@@ -69,6 +69,22 @@
   transform: translateY(-3px);
 }
 
+.btn-tertiary {
+  background: transparent;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-tertiary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+}
+
 .auth-container {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);

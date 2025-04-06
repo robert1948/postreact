@@ -4,11 +4,11 @@ import './Header.css';
 
 const Header = () => {
   const token = localStorage.getItem('token');
-  
+
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">PostReact</Link>
+        <Link to="/">CapeControl</Link>
       </div>
       <nav className="nav">
         <ul>
@@ -21,7 +21,7 @@ const Header = () => {
             </li>
           ) : (
             <li className="nav-button">
-              <a href="#login" className="btn-primary">Login</a>
+              <Link to="/login" className="btn-primary">Login</Link>
             </li>
           )}
         </ul>
