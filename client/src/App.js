@@ -4,6 +4,7 @@ import './App.css';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Register from './components/Register';
+import OAuthCallback from './components/OAuthCallback';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/oauth-callback" element={<OAuthCallback />} />
           <Route
             path="/dashboard"
             element={

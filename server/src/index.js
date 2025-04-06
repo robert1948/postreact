@@ -8,8 +8,12 @@ if (process.env.NODE_ENV === 'production') {
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const passport = require('passport');
 const { initializeDatabase } = require('./config/database');
 const authRoutes = require('./routes/auth');
+
+// Import passport configuration
+require('./config/passport');
 
 const app = express();
 
@@ -21,6 +25,9 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// Initialize Passport
+app.use(passport.initialize());
 
 app.use('/api/auth', authRoutes);
 

@@ -334,6 +334,21 @@ const Register = () => {
         {isLoading ? 'Please wait...' : 'Continue'}
       </button>
 
+      <div className="oauth-divider">
+        <span>OR</span>
+      </div>
+
+      <div className="oauth-buttons">
+        <a href="/api/auth/google" className="oauth-button google">
+          <div className="oauth-icon">G</div>
+          <span>Continue with Google</span>
+        </a>
+        <a href="/api/auth/linkedin" className="oauth-button linkedin">
+          <div className="oauth-icon">in</div>
+          <span>Continue with LinkedIn</span>
+        </a>
+      </div>
+
       <div className="form-footer">
         <p>Already have an account? <a href="/login">Log in</a></p>
       </div>

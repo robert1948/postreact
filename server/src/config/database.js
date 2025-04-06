@@ -25,15 +25,28 @@ const initializeDatabase = async () => {
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
+        password VARCHAR(255),
         name VARCHAR(255) NOT NULL,
         mobile VARCHAR(20),
+        provider VARCHAR(50),
+        provider_id VARCHAR(255),
+        picture VARCHAR(255),
         subscription VARCHAR(50) DEFAULT 'free',
         credits INTEGER DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_login TIMESTAMP
       )
     `);
+
+    // Add provider and provider_id index if it doesn't exist
+    try {
+      await client.query(`
+        CREATE INDEX IF NOT EXISTS idx_users_provider_provider_id
+        ON users(provider, provider_id)
+      `);
+    } catch (err) {
+      console.log('Index may already exist:', err.message);
+    }
 
     console.log('Database tables initialized');
     client.release();

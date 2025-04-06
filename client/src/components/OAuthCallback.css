@@ -1,0 +1,65 @@
+.oauth-callback-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  padding: 2rem;
+}
+
+.oauth-callback-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  color: white;
+}
+
+.oauth-status-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.oauth-callback-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.status-message {
+  color: #a0aec0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Status icon styles */
+.oauth-status-icon:contains('✓') {
+  background: linear-gradient(45deg, #00C851, #00695C);
+  color: white;
+}
+
+.oauth-status-icon:contains('✗') {
+  background: linear-gradient(45deg, #ff4444, #CC0000);
+  color: white;
+}
+
+.oauth-status-icon:contains('⟳') {
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  color: white;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
