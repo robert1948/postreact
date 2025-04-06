@@ -167,6 +167,21 @@ const Login = () => {
         >
           {isLoading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
         </button>
+
+        <div className="oauth-divider">
+          <span>OR</span>
+        </div>
+
+        <div className="oauth-buttons">
+          <a href="/api/auth/google" className="oauth-button google">
+            <div className="oauth-icon">G</div>
+            <span>Continue with Google</span>
+          </a>
+          <a href="/api/auth/linkedin" className="oauth-button linkedin">
+            <div className="oauth-icon">in</div>
+            <span>Continue with LinkedIn</span>
+          </a>
+        </div>
       </form>
     </div>
   );

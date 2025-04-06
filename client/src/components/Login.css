@@ -49,16 +49,44 @@
 
 .form-group input {
   padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
+  background-color: #2a2a2a !important; /* Dark background */
+  color: white !important; /* Force white text color */
   font-size: 1rem;
+  caret-color: white; /* Ensures the cursor is visible */
+  -webkit-text-fill-color: white !important; /* For WebKit browsers */
+  opacity: 1 !important; /* Required for Firefox */
+  box-shadow: none !important; /* Remove any default box shadows */
 }
 
 .form-group input:focus {
   outline: none;
   border-color: #6366f1;
+  background-color: #2a2a2a !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Additional selectors to ensure styles are applied */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"] {
+  background-color: #2a2a2a !important;
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* Style for autofill */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #2a2a2a inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #2a2a2a !important;
+  color: white !important;
 }
 
 .submit-button {
@@ -112,4 +140,90 @@
 .form-group input:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+/* OAuth Styles */
+.oauth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #a0aec0;
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.oauth-divider span {
+  padding: 0 1rem;
+  font-size: 0.9rem;
+}
+
+.oauth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.oauth-button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.oauth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.oauth-button.google {
+  background: rgba(234, 67, 53, 0.2);
+  border-color: rgba(234, 67, 53, 0.4);
+}
+
+.oauth-button.google:hover {
+  background: rgba(234, 67, 53, 0.3);
+}
+
+.oauth-button.linkedin {
+  background: rgba(10, 102, 194, 0.2);
+  border-color: rgba(10, 102, 194, 0.4);
+}
+
+.oauth-button.linkedin:hover {
+  background: rgba(10, 102, 194, 0.3);
+}
+
+.oauth-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.oauth-button.google .oauth-icon {
+  background: #EA4335;
+  color: white;
+}
+
+.oauth-button.linkedin .oauth-icon {
+  background: #0A66C2;
+  color: white;
 }
