@@ -20,32 +20,78 @@ const initializeDatabase = async () => {
     const client = await pool.connect();
     console.log('Successfully connected to PostgreSQL database');
 
-    // Create users table if it doesn't exist
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255),
-        name VARCHAR(255) NOT NULL,
-        mobile VARCHAR(20),
-        provider VARCHAR(50),
-        provider_id VARCHAR(255),
-        picture VARCHAR(255),
-        subscription VARCHAR(50) DEFAULT 'free',
-        credits INTEGER DEFAULT 0,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        last_login TIMESTAMP
-      )
+    // Check if users table exists
+    const tableExists = await client.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables
+        WHERE table_schema = 'public'
+        AND table_name = 'users'
+      );
     `);
 
-    // Add provider and provider_id index if it doesn't exist
-    try {
-      await client.query(`
-        CREATE INDEX IF NOT EXISTS idx_users_provider_provider_id
-        ON users(provider, provider_id)
+    if (tableExists.rows[0].exists) {
+      // Table exists, check for missing columns
+      console.log('Users table exists, checking for missing columns...');
+
+      // Check if provider column exists
+      const providerColumnExists = await client.query(`
+        SELECT EXISTS (
+          SELECT FROM information_schema.columns
+          WHERE table_schema = 'public'
+          AND table_name = 'users'
+          AND column_name = 'provider'
+        );
       `);
+
+      if (!providerColumnExists.rows[0].exists) {
+        // Add OAuth columns
+        console.log('Adding OAuth columns to users table...');
+        await client.query(`
+          ALTER TABLE users
+          ADD COLUMN IF NOT EXISTS provider VARCHAR(50),
+          ADD COLUMN IF NOT EXISTS provider_id VARCHAR(255),
+          ADD COLUMN IF NOT EXISTS picture VARCHAR(255),
+          ALTER COLUMN password DROP NOT NULL
+        `);
+      }
+    } else {
+      // Create users table if it doesn't exist
+      console.log('Creating users table...');
+      await client.query(`
+        CREATE TABLE users (
+          id SERIAL PRIMARY KEY,
+          email VARCHAR(255) UNIQUE NOT NULL,
+          password VARCHAR(255),
+          name VARCHAR(255) NOT NULL,
+          mobile VARCHAR(20),
+          provider VARCHAR(50),
+          provider_id VARCHAR(255),
+          picture VARCHAR(255),
+          subscription VARCHAR(50) DEFAULT 'free',
+          credits INTEGER DEFAULT 0,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          last_login TIMESTAMP
+        )
+      `);
+    }
+
+    // Add provider and provider_id index if columns exist
+    try {
+      const columnsExist = await client.query(`
+        SELECT
+          EXISTS (SELECT FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'provider') AS provider_exists,
+          EXISTS (SELECT FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'provider_id') AS provider_id_exists
+      `);
+
+      if (columnsExist.rows[0].provider_exists && columnsExist.rows[0].provider_id_exists) {
+        console.log('Creating index on provider and provider_id...');
+        await client.query(`
+          CREATE INDEX IF NOT EXISTS idx_users_provider_provider_id
+          ON users(provider, provider_id)
+        `);
+      }
     } catch (err) {
-      console.log('Index may already exist:', err.message);
+      console.log('Error creating index:', err.message);
     }
 
     console.log('Database tables initialized');

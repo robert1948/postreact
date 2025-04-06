@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 // Create Express app
 const app = express();
@@ -53,6 +54,45 @@ app.post('/api/auth/register', (req, res) => {
 
 // Store verification codes in memory (for demo purposes only)
 const verificationCodes = {};
+
+// OAuth routes
+app.get('/api/auth/google', (req, res) => {
+  // In a real app, this would redirect to Google OAuth
+  // For demo, we'll redirect to the callback with a mock token
+  res.redirect('/api/auth/google/callback?code=mock_google_code');
+});
+
+app.get('/api/auth/google/callback', (req, res) => {
+  // In a real app, this would exchange the code for a token
+  // For demo, we'll generate a JWT token
+  const token = jwt.sign(
+    { userId: 'google-123', provider: 'google' },
+    'your-jwt-secret',
+    { expiresIn: '24h' }
+  );
+
+  // Redirect to frontend with token
+  res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/oauth-callback?token=${token}`);
+});
+
+app.get('/api/auth/linkedin', (req, res) => {
+  // In a real app, this would redirect to LinkedIn OAuth
+  // For demo, we'll redirect to the callback with a mock token
+  res.redirect('/api/auth/linkedin/callback?code=mock_linkedin_code');
+});
+
+app.get('/api/auth/linkedin/callback', (req, res) => {
+  // In a real app, this would exchange the code for a token
+  // For demo, we'll generate a JWT token
+  const token = jwt.sign(
+    { userId: 'linkedin-456', provider: 'linkedin' },
+    'your-jwt-secret',
+    { expiresIn: '24h' }
+  );
+
+  // Redirect to frontend with token
+  res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/oauth-callback?token=${token}`);
+});
 
 app.post('/api/auth/request-verification', (req, res) => {
   const { email, mobile } = req.body;
