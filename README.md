@@ -1,6 +1,6 @@
-# PostReact
+# CapeControl
 
-A full-stack application with React frontend and Node.js backend, using PostgreSQL for data storage.
+A full-stack application with React frontend and Node.js backend, using PostgreSQL for data storage. CapeControl democratizes access to advanced AI capabilities.
 
 ## Development Setup
 
@@ -47,6 +47,25 @@ This will start:
 
 ## Deployment
 
+### Deploying to Docker Hub
+
+To deploy the application to Docker Hub:
+
+```bash
+# Make sure the script is executable
+chmod +x deploy_to_dockerhub.sh
+
+# Run the deployment script
+./deploy_to_dockerhub.sh
+```
+
+This script will:
+1. Check if you're logged in to Docker Hub
+2. Build the Docker image
+3. Push the image to Docker Hub
+
+The image will be available at https://hub.docker.com/r/stinkie/capecraft
+
 ### Deploying to Heroku
 
 To deploy the application to Heroku:
@@ -59,13 +78,20 @@ chmod +x deploy_to_heroku.sh
 ./deploy_to_heroku.sh
 ```
 
-This script will:
+Or, to deploy from Docker Hub to Heroku:
+
+```bash
+# Deploy from Docker Hub to Heroku
+./deploy_to_dockerhub.sh --deploy-to-heroku
+```
+
+These scripts will:
 1. Check if you're logged in to Heroku
 2. Set up the necessary environment variables
 3. Build and push the Docker image to Heroku
 4. Release the application
 
-The application will be available at https://postreact.herokuapp.com (or your custom Heroku domain).
+The application will be available at https://capecraft.herokuapp.com or https://www.cape-control.com.
 
 ## Environment Configuration
 
@@ -79,6 +105,20 @@ The application uses different environment configurations for development and pr
   - Configuration in `server/.env.production`
   - Database URL is provided by Heroku
 
+## Docker Image
+
+The application is available as a Docker image on Docker Hub:
+
+```bash
+# Pull the image
+docker pull stinkie/capecraft:latest
+
+# Run the image
+docker run -p 5000:5000 -e DATABASE_URL=your_database_url stinkie/capecraft:latest
+```
+
+The Docker image is automatically updated via GitHub Actions whenever changes are pushed to the master branch.
+
 ## Database Schema
 
 The application uses the following database schema:
@@ -89,8 +129,12 @@ The application uses the following database schema:
 |--------------|-----------|-----------------------------------|
 | id           | SERIAL    | Primary key                       |
 | email        | VARCHAR   | User's email (unique)             |
-| password     | VARCHAR   | Hashed password                   |
+| password     | VARCHAR   | Hashed password (nullable for OAuth) |
 | name         | VARCHAR   | User's name                       |
+| mobile       | VARCHAR   | User's mobile number              |
+| provider     | VARCHAR   | OAuth provider (google, linkedin) |
+| provider_id  | VARCHAR   | ID from the OAuth provider        |
+| picture      | VARCHAR   | Profile picture URL               |
 | subscription | VARCHAR   | Subscription type (default: free) |
 | credits      | INTEGER   | Available credits (default: 0)    |
 | created_at   | TIMESTAMP | Account creation timestamp        |
