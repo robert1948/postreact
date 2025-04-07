@@ -28,7 +28,7 @@ const LandingPage = () => {
         <p className="section-subtitle">Learn how we're changing the game</p>
         <div className="about-content">
           <div className="about-text">
-            <p>PostReact is a cutting-edge platform designed to make advanced AI capabilities accessible to everyone. Our mission is to democratize access to powerful tools that were previously only available to large enterprises.</p>
+            <p>CapeControl is a cutting-edge platform designed to make advanced AI capabilities accessible to everyone. Our mission is to democratize access to powerful tools that were previously only available to large enterprises.</p>
             <p>With our intuitive interface and powerful backend, you can leverage the latest in AI technology without needing a PhD in machine learning.</p>
           </div>
           <div className="about-image">
@@ -50,7 +50,7 @@ const LandingPage = () => {
           <div className="contact-item">
             <div className="contact-icon">📧</div>
             <h3>Email</h3>
-            <p>info@postreact.com</p>
+            <p>info@cape-control.com</p>
           </div>
           <div className="contact-item">
             <div className="contact-icon">📱</div>

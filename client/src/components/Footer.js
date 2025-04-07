@@ -6,10 +6,10 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>PostReact</h3>
+          <h3>CapeControl</h3>
           <p>Democratizing access to advanced AI capabilities</p>
         </div>
-        
+
         <div className="footer-section">
           <h3>Links</h3>
           <ul>
@@ -18,16 +18,16 @@ const Footer = () => {
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
-        
+
         <div className="footer-section">
           <h3>Contact</h3>
-          <p>Email: info@postreact.com</p>
+          <p>Email: info@cape-control.com</p>
           <p>Phone: +1 (123) 456-7890</p>
         </div>
       </div>
-      
+
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} PostReact. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} CapeControl. All rights reserved.</p>
       </div>
     </footer>
   );

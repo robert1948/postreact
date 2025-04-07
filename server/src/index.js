@@ -19,7 +19,7 @@ const app = express();
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
-    ? ['https://postreact-65ee402eb124.herokuapp.com', 'https://postreact.herokuapp.com']
+    ? ['https://postreact-65ee402eb124.herokuapp.com', 'https://postreact.herokuapp.com', 'https://capecraft.herokuapp.com', 'https://www.cape-control.com']
     : 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
