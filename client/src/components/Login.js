@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/auth';
 import './Login.css';
@@ -14,6 +14,12 @@ const Login = () => {
     name: ''
   });
   const [validationErrors, setValidationErrors] = useState({});
+
+  // Log component state when mounted
+  useEffect(() => {
+    console.log('Login component mounted');
+    console.log('Initial form data:', formData);
+  }, []);
 
   const validateForm = () => {
     const errors = {};
@@ -50,12 +56,23 @@ const Login = () => {
 
     try {
       // Call the authentication service and navigate on success
-      await (isLogin
-        ? authService.login(formData)
-        : authService.register(formData));
+      if (isLogin) {
+        // For login, only send email and password
+        const loginData = {
+          email: formData.email,
+          password: formData.password
+        };
+        console.log('Login data:', loginData);
+        await authService.login(loginData);
+      } else {
+        // For registration, send all form data
+        console.log('Registration data:', formData);
+        await authService.register(formData);
+      }
 
       navigate('/dashboard');
     } catch (error) {
+      console.error('Authentication error:', error);
       setError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
@@ -64,10 +81,17 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    console.log(`Input change - Field: ${name}, Value: ${value}`);
+
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [name]: value
+      };
+      console.log('Updated form data:', newData);
+      return newData;
+    });
+
     // Clear validation error when user starts typing
     if (validationErrors[name]) {
       setValidationErrors(prev => ({
