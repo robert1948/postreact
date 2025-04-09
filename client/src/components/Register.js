@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Card, Alert, ProgressBar } from 'react-bootstrap';
 import authService from '../services/auth';
 import './Register.css';
 
@@ -254,34 +255,61 @@ const Register = () => {
 
     let strengthClass = '';
     let strengthText = '';
+    let variant = '';
 
     if (score === 0) {
       strengthClass = '';
       strengthText = '';
+      variant = '';
     } else if (score < 3) {
       strengthClass = 'weak';
       strengthText = 'Weak';
+      variant = 'danger';
     } else if (score < 5) {
       strengthClass = 'medium';
       strengthText = 'Medium';
+      variant = 'warning';
     } else {
       strengthClass = 'strong';
       strengthText = 'Strong';
+      variant = 'success';
     }
 
     return (
-      <div className="password-strength">
-        <div className="strength-meter">
-          <div className={`strength-bar ${strengthClass}`} style={{ width: `${score * 20}%` }}></div>
-        </div>
-        {strengthText && <span className={`strength-text ${strengthClass}`}>{strengthText}</span>}
+      <div className="password-strength mb-3">
+        {score > 0 && (
+          <div className="d-flex align-items-center mb-2">
+            <ProgressBar
+              now={score * 20}
+              variant={variant}
+              className="flex-grow-1 me-2"
+              style={{ height: '8px' }}
+            />
+            {strengthText && <span className={`strength-text ${strengthClass}`}>{strengthText}</span>}
+          </div>
+        )}
 
-        <ul className="strength-requirements">
-          <li className={hasMinLength ? 'met' : ''}>At least 8 characters</li>
-          <li className={hasUppercase ? 'met' : ''}>At least one uppercase letter</li>
-          <li className={hasLowercase ? 'met' : ''}>At least one lowercase letter</li>
-          <li className={hasNumber ? 'met' : ''}>At least one number</li>
-          <li className={hasSpecialChar ? 'met' : ''}>At least one special character</li>
+        <ul className="strength-requirements list-unstyled small">
+          <li className={hasMinLength ? 'text-success' : 'text-muted'}>
+            <i className={`bi ${hasMinLength ? 'bi-check-circle-fill' : 'bi-circle'} me-2`}></i>
+            At least 8 characters
+          </li>
+          <li className={hasUppercase ? 'text-success' : 'text-muted'}>
+            <i className={`bi ${hasUppercase ? 'bi-check-circle-fill' : 'bi-circle'} me-2`}></i>
+            At least one uppercase letter
+          </li>
+          <li className={hasLowercase ? 'text-success' : 'text-muted'}>
+            <i className={`bi ${hasLowercase ? 'bi-check-circle-fill' : 'bi-circle'} me-2`}></i>
+            At least one lowercase letter
+          </li>
+          <li className={hasNumber ? 'text-success' : 'text-muted'}>
+            <i className={`bi ${hasNumber ? 'bi-check-circle-fill' : 'bi-circle'} me-2`}></i>
+            At least one number
+          </li>
+          <li className={hasSpecialChar ? 'text-success' : 'text-muted'}>
+            <i className={`bi ${hasSpecialChar ? 'bi-check-circle-fill' : 'bi-circle'} me-2`}></i>
+            At least one special character
+          </li>
         </ul>
       </div>
     );
@@ -289,15 +317,15 @@ const Register = () => {
 
   // Render step 1: Registration form
   const renderStep1 = () => (
-    <form onSubmit={handleSubmitStep1} className="register-form">
-      <h2>Create Your Account</h2>
-      <p className="form-description">Please fill in the details below to get started.</p>
+    <Form onSubmit={handleSubmitStep1}>
+      <h4 className="text-center mb-3">Create Your Account</h4>
+      <p className="text-center text-muted mb-4">Please fill in the details below to get started.</p>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <Alert variant="danger">{error}</Alert>}
 
-      <div className="form-group">
-        <label htmlFor="email">Email Address</label>
-        <input
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="email">Email Address</Form.Label>
+        <Form.Control
           type="email"
           id="email"
           name="email"
@@ -305,15 +333,16 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Enter your email"
           disabled={isLoading}
+          isInvalid={!!validationErrors.email}
         />
-        {validationErrors.email && (
-          <span className="validation-error">{validationErrors.email}</span>
-        )}
-      </div>
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.email}
+        </Form.Control.Feedback>
+      </Form.Group>
 
-      <div className="form-group">
-        <label htmlFor="mobile">Mobile Number</label>
-        <input
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="mobile">Mobile Number</Form.Label>
+        <Form.Control
           type="tel"
           id="mobile"
           name="mobile"
@@ -321,15 +350,16 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Enter your mobile number"
           disabled={isLoading}
+          isInvalid={!!validationErrors.mobile}
         />
-        {validationErrors.mobile && (
-          <span className="validation-error">{validationErrors.mobile}</span>
-        )}
-      </div>
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.mobile}
+        </Form.Control.Feedback>
+      </Form.Group>
 
-      <div className="form-group">
-        <label htmlFor="username">Username</label>
-        <input
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="username">Username</Form.Label>
+        <Form.Control
           type="text"
           id="username"
           name="username"
@@ -337,15 +367,16 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Choose a username"
           disabled={isLoading}
+          isInvalid={!!validationErrors.username}
         />
-        {validationErrors.username && (
-          <span className="validation-error">{validationErrors.username}</span>
-        )}
-      </div>
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.username}
+        </Form.Control.Feedback>
+      </Form.Group>
 
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="password">Password</Form.Label>
+        <Form.Control
           type="password"
           id="password"
           name="password"
@@ -353,16 +384,17 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Create a password"
           disabled={isLoading}
+          isInvalid={!!validationErrors.password}
         />
-        {validationErrors.password && (
-          <span className="validation-error">{validationErrors.password}</span>
-        )}
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.password}
+        </Form.Control.Feedback>
         {formData.password && renderPasswordStrength()}
-      </div>
+      </Form.Group>
 
-      <div className="form-group">
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
+      <Form.Group className="mb-4">
+        <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
+        <Form.Control
           type="password"
           id="confirmPassword"
           name="confirmPassword"
@@ -370,55 +402,61 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Confirm your password"
           disabled={isLoading}
+          isInvalid={!!validationErrors.confirmPassword}
         />
-        {validationErrors.confirmPassword && (
-          <span className="validation-error">{validationErrors.confirmPassword}</span>
-        )}
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.confirmPassword}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <div className="d-grid gap-2 mb-4">
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={isLoading}
+          className={isLoading ? 'loading' : ''}
+        >
+          {isLoading ? 'Please wait...' : 'Continue'}
+        </Button>
       </div>
 
-      <button
-        type="submit"
-        className={`submit-button ${isLoading ? 'loading' : ''}`}
-        disabled={isLoading}
-      >
-        {isLoading ? 'Please wait...' : 'Continue'}
-      </button>
-
-      <div className="oauth-divider">
+      <div className="oauth-divider my-4">
         <span>OR</span>
       </div>
 
-      <div className="oauth-buttons">
+      <div className="d-grid gap-2 mb-4">
         <a href="/api/auth/google" className="oauth-button google">
           <div className="oauth-icon">G</div>
           <span>Continue with Google</span>
         </a>
+        {/* LinkedIn login temporarily disabled
         <a href="/api/auth/linkedin" className="oauth-button linkedin">
           <div className="oauth-icon">in</div>
           <span>Continue with LinkedIn</span>
         </a>
+        */}
       </div>
 
-      <div className="form-footer">
+      <div className="text-center">
         <p>Already have an account? <a href="/login">Log in</a></p>
       </div>
-    </form>
+    </Form>
   );
 
   // Render step 2: Verification code
   const renderStep2 = () => (
-    <form onSubmit={handleVerifyCode} className="verification-form">
-      <h2>Verify Your Account</h2>
-      <p className="form-description">
+    <Form onSubmit={handleVerifyCode}>
+      <h4 className="text-center mb-3">Verify Your Account</h4>
+      <p className="text-center text-muted mb-4">
         We've sent a verification code to your email and mobile number.
         Please enter the code below to verify your account.
       </p>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <Alert variant="danger">{error}</Alert>}
 
-      <div className="form-group">
-        <label htmlFor="verificationCode">Verification Code</label>
-        <input
+      <Form.Group className="mb-4">
+        <Form.Label htmlFor="verificationCode">Verification Code</Form.Label>
+        <Form.Control
           type="text"
           id="verificationCode"
           value={userCode}
@@ -426,34 +464,39 @@ const Register = () => {
           placeholder="Enter verification code"
           disabled={isLoading}
         />
+      </Form.Group>
+
+      <div className="d-grid gap-2 mb-4">
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={isLoading}
+          className={isLoading ? 'loading' : ''}
+        >
+          {isLoading ? 'Verifying...' : 'Verify Code'}
+        </Button>
       </div>
 
-      <button
-        type="submit"
-        className={`submit-button ${isLoading ? 'loading' : ''}`}
-        disabled={isLoading}
-      >
-        {isLoading ? 'Verifying...' : 'Verify Code'}
-      </button>
-
-      <div className="form-footer">
-        <p>Didn't receive a code? <button type="button" className="text-button">Resend Code</button></p>
+      <div className="text-center">
+        <p>Didn't receive a code? <Button variant="link" size="sm" onClick={() => {}}>Resend Code</Button></p>
       </div>
-    </form>
+    </Form>
   );
 
   // Render step 3: Success
   const renderStep3 = () => (
-    <div className="success-container">
-      <div className="success-icon">✓</div>
-      <h2>Registration Successful!</h2>
-      <p>Your account has been created successfully.</p>
-      <button
-        onClick={handleComplete}
-        className="submit-button"
-      >
-        Go to Dashboard
-      </button>
+    <div className="text-center py-4">
+      <div className="success-icon mb-3">✓</div>
+      <h4 className="mb-3">Registration Successful!</h4>
+      <p className="text-muted mb-4">Your account has been created successfully.</p>
+      <div className="d-grid gap-2">
+        <Button
+          variant="primary"
+          onClick={handleComplete}
+        >
+          Go to Dashboard
+        </Button>
+      </div>
     </div>
   );
 
@@ -472,31 +515,41 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-progress">
-        <div className={`progress-step ${step >= 1 ? 'active' : ''}`}>
-          <div className="step-number">1</div>
-          <div className="step-label">Account Details</div>
-        </div>
-        <div className="progress-line"></div>
-        <div className={`progress-step ${step >= 2 ? 'active' : ''}`}>
-          <div className="step-number">2</div>
-          <div className="step-label">Verification</div>
-        </div>
-        <div className="progress-line"></div>
-        <div className={`progress-step ${step >= 3 ? 'active' : ''}`}>
-          <div className="step-number">3</div>
-          <div className="step-label">Complete</div>
-        </div>
-      </div>
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col xs={12} sm={10} md={8} lg={6}>
+          <Card className="register-container shadow">
+            <Card.Body>
+              <div className="register-progress mb-4">
+                <div className={`progress-step ${step >= 1 ? 'active' : ''}`}>
+                  <div className="step-number">1</div>
+                  <div className="step-label">Account Details</div>
+                </div>
+                <div className="progress-line"></div>
+                <div className={`progress-step ${step >= 2 ? 'active' : ''}`}>
+                  <div className="step-number">2</div>
+                  <div className="step-label">Verification</div>
+                </div>
+                <div className="progress-line"></div>
+                <div className={`progress-step ${step >= 3 ? 'active' : ''}`}>
+                  <div className="step-number">3</div>
+                  <div className="step-label">Complete</div>
+                </div>
+              </div>
 
-      {renderStep()}
+              {renderStep()}
+            </Card.Body>
+          </Card>
 
-      <div className="help-section">
-        <h3>Need Help?</h3>
-        <p>If you're having trouble registering, please check our <a href="/faq">FAQ</a> or <a href="/contact">contact support</a>.</p>
-      </div>
-    </div>
+          <Card className="mt-4 shadow">
+            <Card.Body>
+              <h5 className="mb-3">Need Help?</h5>
+              <p className="mb-0">If you're having trouble registering, please check our <a href="/faq">FAQ</a> or <a href="/contact">contact support</a>.</p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

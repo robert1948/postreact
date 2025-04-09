@@ -1,6 +1,6 @@
 .dashboard {
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1.5rem 0;
   background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
   color: white;
 }
@@ -11,23 +11,23 @@
   background: linear-gradient(45deg, #6366f1, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-align: center;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
 .dashboard-content {
-  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 10px;
-  max-width: 1000px;
-  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 10px !important;
+  color: white !important;
 }
 
-.dashboard-section {
-  margin-bottom: 2.5rem;
-}
-
-.dashboard-section h2 {
+.dashboard-card h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   color: white;
@@ -36,29 +36,25 @@
 }
 
 .dashboard-actions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 .dashboard-action-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 8px !important;
   transition: transform 0.3s ease, background 0.3s ease;
   cursor: pointer;
 }
 
 .dashboard-action-card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .action-icon {
   font-size: 2rem;
-  margin-bottom: 1rem;
 }
 
 .dashboard-action-card h3 {
@@ -70,24 +66,43 @@
 .dashboard-action-card p {
   color: #a0aec0;
   font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 991px) {
+  .dashboard h1 {
+    font-size: 2rem;
+  }
+
+  .dashboard-card {
+    margin-bottom: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
   .dashboard {
-    padding: 1rem;
+    padding: 1rem 0;
   }
 
-  .dashboard-content {
-    padding: 1.5rem;
+  .dashboard h1 {
+    font-size: 1.75rem;
   }
 
-  .dashboard-actions-grid {
-    grid-template-columns: 1fr 1fr;
+  .dashboard-card h2 {
+    font-size: 1.3rem;
   }
 }
 
-@media (max-width: 480px) {
-  .dashboard-actions-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 576px) {
+  .dashboard h1 {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-action-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .action-icon {
+    font-size: 1.75rem;
   }
 }

@@ -43,4 +43,4 @@ echo "🚀 Releasing the application..."
 heroku container:release web --app postreact
 
 echo "✨ Deployment completed successfully!"
-echo "🌐 Your application is now available at: https://postreact.herokuapp.com"
+echo "🌐 Your application is now available at: https://postreact-65ee402eb124.herokuapp.com/"

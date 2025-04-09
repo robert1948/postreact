@@ -1,12 +1,168 @@
 .App {
   text-align: center;
   min-height: 100vh;
+  background: var(--gradient-background);
+  color: var(--neutral-100);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+/* Bootstrap Button Overrides */
+.btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all var(--transition) ease;
+  padding: var(--spacing-md) var(--spacing-xl);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  background: var(--gradient-primary);
+  border: none;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  color: white;
+}
+
+.btn-outline-primary {
+  border-color: var(--primary);
+  color: var(--primary-light);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: var(--primary-light);
+  color: var(--primary-light);
+  transform: translateY(-3px);
+}
+
+/* Bootstrap Card Overrides */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition) ease, box-shadow var(--transition) ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--neutral-100);
+}
+
+.card-body {
+  padding: var(--spacing-xl);
+}
+
+.card.hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Bootstrap Form Overrides */
+.form-group,
+.form-floating,
+.mb-3 {
+  margin-bottom: var(--spacing-lg);
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--neutral-300);
+  font-size: 0.9rem;
+}
+
+.form-control,
+.form-select {
+  padding: var(--spacing-md);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white !important;
+  font-size: 1rem;
+  transition: border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+/* Style for autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(42, 42, 42, 0.9) inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn var(--transition) ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp var(--transition) ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Bootstrap Utility Overrides */
+.text-primary {
+  color: var(--primary-light) !important;
+}
+
+.bg-primary {
+  background: var(--gradient-primary) !important;
+}
+
+/* Responsive Container Padding */
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+  }
+}
+
+/* Accessibility Improvements */
+.btn:focus,
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
 }

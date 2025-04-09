@@ -6,55 +6,29 @@ const API_URL = process.env.NODE_ENV === 'production'
 
 export const authService = {
   async login(credentials) {
-    console.log('Sending login request to:', `${API_URL}/login`);
-    console.log('With credentials:', JSON.stringify(credentials));
+    const response = await axios.post(`${API_URL}/login`, credentials);
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
 
-    try {
-      const response = await axios.post(`${API_URL}/login`, credentials);
-      console.log('Login response:', response.data);
-
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-
-        // Store user data if available
-        if (response.data.user) {
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-        }
+      // Store user data if available
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
       }
-      return response.data;
-    } catch (error) {
-      console.error('Login error:', error);
-      if (error.response) {
-        console.error('Error response:', error.response.data);
-      }
-      throw error;
     }
+    return response.data;
   },
 
   async register(userData) {
-    console.log('Sending registration request to:', `${API_URL}/register`);
-    console.log('With user data:', JSON.stringify(userData));
+    const response = await axios.post(`${API_URL}/register`, userData);
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
 
-    try {
-      const response = await axios.post(`${API_URL}/register`, userData);
-      console.log('Registration response:', response.data);
-
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-
-        // Store user data if available
-        if (response.data.user) {
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-        }
+      // Store user data if available
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
       }
-      return response.data;
-    } catch (error) {
-      console.error('Registration error:', error);
-      if (error.response) {
-        console.error('Error response:', error.response.data);
-      }
-      throw error;
     }
+    return response.data;
   },
 
   async requestVerification(userData) {

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Nav, Alert, Card } from 'react-bootstrap';
 import authService from '../services/auth';
 import './Login.css';
 
@@ -14,12 +15,6 @@ const Login = () => {
     name: ''
   });
   const [validationErrors, setValidationErrors] = useState({});
-
-  // Log component state when mounted
-  useEffect(() => {
-    console.log('Login component mounted');
-    console.log('Initial form data:', formData);
-  }, []);
 
   const validateForm = () => {
     const errors = {};
@@ -56,23 +51,12 @@ const Login = () => {
 
     try {
       // Call the authentication service and navigate on success
-      if (isLogin) {
-        // For login, only send email and password
-        const loginData = {
-          email: formData.email,
-          password: formData.password
-        };
-        console.log('Login data:', loginData);
-        await authService.login(loginData);
-      } else {
-        // For registration, send all form data
-        console.log('Registration data:', formData);
-        await authService.register(formData);
-      }
+      await (isLogin
+        ? authService.login(formData)
+        : authService.register(formData));
 
       navigate('/dashboard');
     } catch (error) {
-      console.error('Authentication error:', error);
       setError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
@@ -81,8 +65,7 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Input change - Field: ${name}, Value: ${value}`);
-
+    console.log(`Field ${name} changed to: ${value}`);
     setFormData(prev => {
       const newData = {
         ...prev,
@@ -91,7 +74,6 @@ const Login = () => {
       console.log('Updated form data:', newData);
       return newData;
     });
-
     // Clear validation error when user starts typing
     if (validationErrors[name]) {
       setValidationErrors(prev => ({
@@ -102,112 +84,134 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-tabs">
-        <button
-          className={isLogin ? 'active' : ''}
-          onClick={() => {
-            setIsLogin(true);
-            setError('');
-            setValidationErrors({});
-          }}
-          disabled={isLoading}
-        >
-          Login
-        </button>
-        <button
-          className={!isLogin ? 'active' : ''}
-          onClick={() => {
-            setIsLogin(false);
-            setError('');
-            setValidationErrors({});
-          }}
-          disabled={isLoading}
-        >
-          Register
-        </button>
-      </div>
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col xs={12} sm={10} md={8} lg={6}>
+          <Card className="auth-container shadow">
+            <Card.Body>
+              <Nav variant="tabs" className="mb-4">
+                <Nav.Item>
+                  <Nav.Link
+                    active={isLogin}
+                    onClick={() => {
+                      setIsLogin(true);
+                      setError('');
+                      setValidationErrors({});
+                    }}
+                    disabled={isLoading}
+                    className="auth-tab"
+                  >
+                    Login
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    active={!isLogin}
+                    onClick={() => {
+                      setIsLogin(false);
+                      setError('');
+                      setValidationErrors({});
+                    }}
+                    disabled={isLoading}
+                    className="auth-tab"
+                  >
+                    Register
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
 
-      {error && <div className="error-message">{error}</div>}
+              {error && <Alert variant="danger">{error}</Alert>}
 
-      <form onSubmit={handleSubmit} className="auth-form">
-        {!isLogin && (
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required={!isLogin}
-              placeholder="Enter your name"
-              disabled={isLoading}
-            />
-            {validationErrors.name && (
-              <span className="validation-error">{validationErrors.name}</span>
-            )}
-          </div>
-        )}
+              <Form onSubmit={handleSubmit}>
+                {!isLogin && (
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name || ''}
+                      onChange={handleChange}
+                      required={!isLogin}
+                      placeholder="Enter your name"
+                      disabled={isLoading}
+                      isInvalid={!!validationErrors.name}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {validationErrors.name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                )}
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="Enter your email"
-            disabled={isLoading}
-          />
-          {validationErrors.email && (
-            <span className="validation-error">{validationErrors.email}</span>
-          )}
-        </div>
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="email">Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email || ''}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your email"
+                    disabled={isLoading}
+                    isInvalid={!!validationErrors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {validationErrors.email}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            placeholder="Enter your password"
-            disabled={isLoading}
-          />
-          {validationErrors.password && (
-            <span className="validation-error">{validationErrors.password}</span>
-          )}
-        </div>
+                <Form.Group className="mb-4">
+                  <Form.Label htmlFor="password">Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password || ''}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your password"
+                    disabled={isLoading}
+                    isInvalid={!!validationErrors.password}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {validationErrors.password}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-        <button
-          type="submit"
-          className={`submit-button ${isLoading ? 'loading' : ''}`}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
-        </button>
+                <div className="d-grid gap-2">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={isLoading}
+                    className={isLoading ? 'loading' : ''}
+                  >
+                    {isLoading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
+                  </Button>
+                </div>
 
-        <div className="oauth-divider">
-          <span>OR</span>
-        </div>
+                <div className="oauth-divider my-4">
+                  <span>OR</span>
+                </div>
 
-        <div className="oauth-buttons">
-          <a href="/api/auth/google" className="oauth-button google">
-            <div className="oauth-icon">G</div>
-            <span>Continue with Google</span>
-          </a>
-          <a href="/api/auth/linkedin" className="oauth-button linkedin">
-            <div className="oauth-icon">in</div>
-            <span>Continue with LinkedIn</span>
-          </a>
-        </div>
-      </form>
-    </div>
+                <div className="d-grid gap-2">
+                  <a href="https://www.cape-control.com/api/auth/google" className="oauth-button google">
+                    <div className="oauth-icon">G</div>
+                    <span>Continue with Google</span>
+                  </a>
+                  {/* LinkedIn login temporarily disabled
+                  <a href="https://www.cape-control.com/api/auth/linkedin" className="oauth-button linkedin">
+                    <div className="oauth-icon">in</div>
+                    <span>Continue with LinkedIn</span>
+                  </a>
+                  */}
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

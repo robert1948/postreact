@@ -1,11 +1,9 @@
+/* Card styling */
 .register-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
 }
 
@@ -60,112 +58,87 @@
   z-index: 0;
 }
 
-.register-form,
-.verification-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.register-form h2,
-.verification-form h2,
-.success-container h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
-
-.form-description {
-  color: #a0aec0;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  color: #a0aec0;
-  font-size: 0.9rem;
-}
-
-.form-group input {
-  padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  background-color: #2a2a2a !important; /* Dark background */
-  color: white !important; /* Force white text color */
-  font-size: 1rem;
-  caret-color: white; /* Ensures the cursor is visible */
-  -webkit-text-fill-color: white !important; /* For WebKit browsers */
-  opacity: 1 !important; /* Required for Firefox */
-  box-shadow: none !important; /* Remove any default box shadows */
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #6366f1;
-  background-color: #2a2a2a !important;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-}
-
-/* Additional selectors to ensure styles are applied */
-input[type="email"],
-input[type="password"],
-input[type="text"],
-input[type="tel"] {
-  background-color: #2a2a2a !important;
+/* Bootstrap Form Control customization */
+.form-control,
+.form-select {
+  background-color: rgba(42, 42, 42, 0.8) !important;
   color: white !important;
-  -webkit-text-fill-color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  transition: border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
 }
 
-.form-group input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-  opacity: 1;
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+  background-color: rgba(42, 42, 42, 0.9) !important;
+}
+
+.form-label {
+  color: var(--neutral-300);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Style for autofill */
-.form-group input:-webkit-autofill,
-.form-group input:-webkit-autofill:hover,
-.form-group input:-webkit-autofill:focus,
-.form-group input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #2a2a2a inset !important;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(42, 42, 42, 0.9) inset !important;
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s;
-  background-color: #2a2a2a !important;
-  color: white !important;
 }
 
-.validation-error {
+/* Invalid form feedback */
+.invalid-feedback {
   color: #ff4444;
   font-size: 0.8rem;
   margin-top: 0.25rem;
 }
 
-.submit-button {
-  padding: 1rem;
-  border: none;
-  border-radius: 5px;
-  background: linear-gradient(45deg, #6366f1, #8b5cf6);
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
+/* Form control when disabled */
+.form-control:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: rgba(42, 42, 42, 0.6) !important;
 }
 
-.submit-button:hover {
-  transform: translateY(-2px);
+/* Button customization */
+.btn-primary {
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  border: none;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  transition: all var(--transition) ease;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
-.submit-button.loading {
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled,
+.btn-primary.loading {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
+}
+
+/* Alert customization */
+.alert-danger {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff4444;
+  border-color: rgba(255, 0, 0, 0.2);
+  text-align: center;
 }
 
 /* OAuth Styles */
@@ -289,75 +262,22 @@ input[type="tel"] {
   margin-top: 0.5rem;
 }
 
-.strength-meter {
-  height: 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  margin-bottom: 0.5rem;
-}
-
-.strength-bar {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-.strength-bar.weak {
-  background-color: #ff4444;
-}
-
-.strength-bar.medium {
-  background-color: #ffbb33;
-}
-
-.strength-bar.strong {
-  background-color: #00C851;
-}
-
 .strength-text {
   font-size: 0.8rem;
-  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
   display: inline-block;
 }
 
 .strength-text.weak {
-  color: #ff4444;
+  color: #dc3545;
 }
 
 .strength-text.medium {
-  color: #ffbb33;
+  color: #ffc107;
 }
 
 .strength-text.strong {
-  color: #00C851;
-}
-
-.strength-requirements {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0 0;
-  font-size: 0.8rem;
-  color: #a0aec0;
-}
-
-.strength-requirements li {
-  margin-bottom: 0.25rem;
-  position: relative;
-  padding-left: 1.2rem;
-}
-
-.strength-requirements li:before {
-  content: "○";
-  position: absolute;
-  left: 0;
-}
-
-.strength-requirements li.met {
-  color: #00C851;
-}
-
-.strength-requirements li.met:before {
-  content: "✓";
+  color: #28a745;
 }
 
 /* Verification code input */
@@ -368,11 +288,6 @@ input[type="tel"] {
 }
 
 /* Success container */
-.success-container {
-  text-align: center;
-  padding: 2rem 0;
-}
-
 .success-icon {
   width: 80px;
   height: 80px;
@@ -381,14 +296,9 @@ input[type="tel"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto;
   font-size: 2.5rem;
   color: white;
-}
-
-.success-container p {
-  color: #a0aec0;
-  margin-bottom: 2rem;
 }
 
 /* Help section */
@@ -418,13 +328,25 @@ input[type="tel"] {
   text-decoration: underline;
 }
 
+/* Responsive styles */
 @media (max-width: 768px) {
-  .register-container {
-    padding: 1.5rem;
-    margin: 1rem;
-  }
-
   .step-label {
     display: none;
+  }
+
+  .register-progress {
+    margin-bottom: 1.5rem;
+  }
+
+  .progress-step .step-number {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card {
+    border-radius: 0;
   }
 }

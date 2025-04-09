@@ -72,9 +72,11 @@ app.get('/api/auth/google/callback', (req, res) => {
   );
 
   // Redirect to frontend with token
-  res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/oauth-callback?token=${token}`);
+  res.redirect(`${process.env.CLIENT_URL || 'https://www.cape-control.com'}/oauth-callback?token=${token}`);
 });
 
+// LinkedIn OAuth routes - temporarily disabled
+/*
 app.get('/api/auth/linkedin', (req, res) => {
   // In a real app, this would redirect to LinkedIn OAuth
   // For demo, we'll redirect to the callback with a mock token
@@ -91,7 +93,17 @@ app.get('/api/auth/linkedin/callback', (req, res) => {
   );
 
   // Redirect to frontend with token
-  res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/oauth-callback?token=${token}`);
+  res.redirect(`${process.env.CLIENT_URL || 'https://www.cape-control.com'}/oauth-callback?token=${token}`);
+});
+*/
+
+// Temporary route to handle LinkedIn requests and show a message
+app.get('/api/auth/linkedin', (req, res) => {
+  res.redirect('/login?error=linkedin_disabled');
+});
+
+app.get('/api/auth/linkedin/callback', (req, res) => {
+  res.redirect('/login?error=linkedin_disabled');
 });
 
 app.post('/api/auth/request-verification', (req, res) => {

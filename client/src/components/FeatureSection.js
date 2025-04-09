@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiCpu, FiRefreshCw, FiBarChart2, FiShield } from 'react-icons/fi';
 import './FeatureSection.css';
 
 const FeatureSection = () => {
@@ -7,39 +8,46 @@ const FeatureSection = () => {
       id: 1,
       title: 'AI-Powered Insights',
       description: 'Leverage advanced AI algorithms to gain valuable insights from your data.',
-      icon: '🧠'
+      icon: <FiCpu size={40} />,
+      delay: 'delay-1'
     },
     {
       id: 2,
       title: 'Seamless Integration',
       description: 'Easily integrate with your existing tools and workflows.',
-      icon: '🔄'
+      icon: <FiRefreshCw size={40} />,
+      delay: 'delay-2'
     },
     {
       id: 3,
       title: 'Real-time Analytics',
       description: 'Monitor and analyze your data in real-time for immediate decision making.',
-      icon: '📊'
+      icon: <FiBarChart2 size={40} />,
+      delay: 'delay-3'
     },
     {
       id: 4,
       title: 'Secure & Reliable',
       description: 'Enterprise-grade security with 99.9% uptime guarantee.',
-      icon: '🔒'
+      icon: <FiShield size={40} />,
+      delay: 'delay-4'
     }
   ];
 
   return (
     <section id="features" className="feature-section">
-      <h2>Key Features</h2>
-      <p className="section-subtitle">Discover what makes our platform stand out</p>
-      
+      <div className="section-header fade-in">
+        <h2 className="text-gradient">Key Features</h2>
+        <p className="section-subtitle">Discover what makes our platform stand out</p>
+      </div>
+
       <div className="features-grid">
         {features.map(feature => (
-          <div key={feature.id} className="feature-card">
+          <div key={feature.id} className={`feature-card fade-in-up ${feature.delay} hover-lift`}>
             <div className="feature-icon">{feature.icon}</div>
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
+            <div className="feature-card-bg"></div>
           </div>
         ))}
       </div>

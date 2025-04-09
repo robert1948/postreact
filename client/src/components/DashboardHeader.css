@@ -1,11 +1,8 @@
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   margin-bottom: 2rem;
+  padding: 0.75rem 1rem;
 }
 
 .dashboard-logo {
@@ -14,24 +11,29 @@
   background: linear-gradient(45deg, #6366f1, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
-.dashboard-nav ul {
-  display: flex;
-  list-style: none;
-  gap: 1.5rem;
+.navbar-dark .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.dashboard-nav a {
-  color: #a0aec0;
-  text-decoration: none;
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.nav-link {
+  color: #a0aec0 !important;
   transition: color 0.3s ease;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.75rem !important;
+  margin: 0 0.25rem;
 }
 
-.dashboard-nav a:hover,
-.dashboard-nav a.active {
-  color: white;
+.nav-link:hover,
+.nav-link.active {
+  color: white !important;
   border-bottom: 2px solid #6366f1;
 }
 
@@ -42,12 +44,29 @@
 
 @media (max-width: 768px) {
   .dashboard-header {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
   }
-  
-  .dashboard-nav ul {
-    gap: 1rem;
+
+  .navbar-collapse {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .nav-link {
+    padding: 0.75rem 1rem !important;
+    margin: 0.25rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .dashboard-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 }

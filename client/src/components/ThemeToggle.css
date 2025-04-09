@@ -1,0 +1,59 @@
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition) ease;
+  color: var(--neutral-200);
+  margin-left: var(--spacing-md);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(15deg);
+}
+
+.theme-icon {
+  font-size: 1.2rem;
+  transition: transform var(--transition) ease;
+}
+
+.theme-toggle:hover .theme-icon {
+  transform: scale(1.2);
+}
+
+/* Light theme styles will be applied when data-theme="light" is set on the html element */
+html[data-theme='light'] {
+  --bg-dark-primary: #f9fafb;
+  --bg-dark-secondary: #f3f4f6;
+  --bg-dark-tertiary: #e5e7eb;
+  
+  --neutral-50: #111827;
+  --neutral-100: #1f2937;
+  --neutral-200: #374151;
+  --neutral-300: #4b5563;
+  --neutral-400: #6b7280;
+  --neutral-500: #9ca3af;
+  --neutral-600: #d1d5db;
+  --neutral-700: #e5e7eb;
+  --neutral-800: #f3f4f6;
+  --neutral-900: #f9fafb;
+  
+  --gradient-background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 1rem;
+    right: 4rem;
+  }
+}
