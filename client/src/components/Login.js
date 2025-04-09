@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Nav, Alert, Card } from 'react-bootstrap';
 import authService from '../services/auth';
@@ -9,29 +9,39 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: ''
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [validationErrors, setValidationErrors] = useState({});
+
+  // Generate a random key to prevent browser autofill
+  const [formKey, setFormKey] = useState(Math.random().toString(36).substring(7));
+
+  // Clear form fields when component mounts
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+    setName('');
+    // Generate a new form key to prevent browser autofill
+    setFormKey(Math.random().toString(36).substring(7));
+  }, []);
 
   const validateForm = () => {
     const errors = {};
 
-    if (!formData.email) {
+    if (!email) {
       errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
       errors.email = 'Invalid email format';
     }
 
-    if (!formData.password) {
+    if (!password) {
       errors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
+    } else if (password.length < 6) {
       errors.password = 'Password must be at least 6 characters';
     }
 
-    if (!isLogin && !formData.name) {
+    if (!isLogin && !name) {
       errors.name = 'Name is required';
     }
 
@@ -52,8 +62,8 @@ const Login = () => {
     try {
       // Call the authentication service and navigate on success
       await (isLogin
-        ? authService.login(formData)
-        : authService.register(formData));
+        ? authService.login({ email, password })
+        : authService.register({ email, password, name }));
 
       navigate('/dashboard');
     } catch (error) {
@@ -63,17 +73,35 @@ const Login = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
     // Clear validation error when user starts typing
-    if (validationErrors[name]) {
+    if (validationErrors.email) {
       setValidationErrors(prev => ({
         ...prev,
-        [name]: ''
+        email: ''
+      }));
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    // Clear validation error when user starts typing
+    if (validationErrors.password) {
+      setValidationErrors(prev => ({
+        ...prev,
+        password: ''
+      }));
+    }
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    // Clear validation error when user starts typing
+    if (validationErrors.name) {
+      setValidationErrors(prev => ({
+        ...prev,
+        name: ''
       }));
     }
   };
@@ -92,6 +120,11 @@ const Login = () => {
                       setIsLogin(true);
                       setError('');
                       setValidationErrors({});
+                      // Reset form fields
+                      setEmail('');
+                      setPassword('');
+                      // Generate a new form key to prevent browser autofill
+                      setFormKey(Math.random().toString(36).substring(7));
                     }}
                     disabled={isLoading}
                     className="auth-tab"
@@ -106,6 +139,12 @@ const Login = () => {
                       setIsLogin(false);
                       setError('');
                       setValidationErrors({});
+                      // Reset form fields
+                      setEmail('');
+                      setPassword('');
+                      setName('');
+                      // Generate a new form key to prevent browser autofill
+                      setFormKey(Math.random().toString(36).substring(7));
                     }}
                     disabled={isLoading}
                     className="auth-tab"
@@ -117,20 +156,21 @@ const Login = () => {
 
               {error && <Alert variant="danger">{error}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} key={`${isLogin ? 'login' : 'register'}-${formKey}`}>
                 {!isLogin && (
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="name">Name</Form.Label>
                     <Form.Control
                       type="text"
-                      id="name"
+                      id={`name-${formKey}`}
                       name="name"
-                      value={formData.name || ''}
-                      onChange={handleChange}
+                      value={name}
+                      onChange={handleNameChange}
                       required={!isLogin}
                       placeholder="Enter your name"
                       disabled={isLoading}
                       isInvalid={!!validationErrors.name}
+                      autoComplete="new-password"
                     />
                     <Form.Control.Feedback type="invalid">
                       {validationErrors.name}
@@ -142,15 +182,15 @@ const Login = () => {
                   <Form.Label htmlFor="email">Email</Form.Label>
                   <Form.Control
                     type="email"
-                    id="email"
+                    id={`email-${formKey}`}
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={handleEmailChange}
                     required
                     placeholder="Enter your email"
                     disabled={isLoading}
                     isInvalid={!!validationErrors.email}
-                    autoComplete="email"
+                    autoComplete="new-password"
                   />
                   <Form.Control.Feedback type="invalid">
                     {validationErrors.email}
@@ -161,15 +201,15 @@ const Login = () => {
                   <Form.Label htmlFor="password">Password</Form.Label>
                   <Form.Control
                     type="password"
-                    id="password"
+                    id={`password-${formKey}`}
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={handlePasswordChange}
                     required
                     placeholder="Enter your password"
                     disabled={isLoading}
                     isInvalid={!!validationErrors.password}
-                    autoComplete="current-password"
+                    autoComplete="new-password"
                   />
                   <Form.Control.Feedback type="invalid">
                     {validationErrors.password}

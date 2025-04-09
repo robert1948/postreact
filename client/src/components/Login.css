@@ -88,6 +88,18 @@ input:-webkit-autofill:active {
 .form-control {
   color: white !important;
   caret-color: white;
+  background-color: rgba(42, 42, 42, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Override browser autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(42, 42, 42, 0.8) inset !important;
 }
 
 .form-control::placeholder {
