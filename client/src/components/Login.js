@@ -65,15 +65,10 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Field ${name} changed to: ${value}`);
-    setFormData(prev => {
-      const newData = {
-        ...prev,
-        [name]: value
-      };
-      console.log('Updated form data:', newData);
-      return newData;
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     // Clear validation error when user starts typing
     if (validationErrors[name]) {
       setValidationErrors(prev => ({
@@ -149,12 +144,13 @@ const Login = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email || ''}
+                    value={formData.email}
                     onChange={handleChange}
                     required
                     placeholder="Enter your email"
                     disabled={isLoading}
                     isInvalid={!!validationErrors.email}
+                    autoComplete="email"
                   />
                   <Form.Control.Feedback type="invalid">
                     {validationErrors.email}
@@ -167,12 +163,13 @@ const Login = () => {
                     type="password"
                     id="password"
                     name="password"
-                    value={formData.password || ''}
+                    value={formData.password}
                     onChange={handleChange}
                     required
                     placeholder="Enter your password"
                     disabled={isLoading}
                     isInvalid={!!validationErrors.password}
+                    autoComplete="current-password"
                   />
                   <Form.Control.Feedback type="invalid">
                     {validationErrors.password}
@@ -195,12 +192,22 @@ const Login = () => {
                 </div>
 
                 <div className="d-grid gap-2">
-                  <a href="https://www.cape-control.com/api/auth/google" className="oauth-button google">
+                  <a
+                    href={process.env.NODE_ENV === 'production'
+                      ? 'https://www.cape-control.com/api/auth/google'
+                      : 'http://localhost:5000/api/auth/google'}
+                    className="oauth-button google"
+                  >
                     <div className="oauth-icon">G</div>
                     <span>Continue with Google</span>
                   </a>
                   {/* LinkedIn login temporarily disabled
-                  <a href="https://www.cape-control.com/api/auth/linkedin" className="oauth-button linkedin">
+                  <a
+                    href={process.env.NODE_ENV === 'production'
+                      ? 'https://www.cape-control.com/api/auth/linkedin'
+                      : 'http://localhost:5000/api/auth/linkedin'}
+                    className="oauth-button linkedin"
+                  >
                     <div className="oauth-icon">in</div>
                     <span>Continue with LinkedIn</span>
                   </a>

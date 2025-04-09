@@ -67,6 +67,7 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px rgba(42, 42, 42, 0.9) inset !important;
   -webkit-text-fill-color: white !important;
   transition: background-color 5000s ease-in-out 0s;
+  caret-color: white !important;
 }
 
 /* Invalid form feedback */
@@ -81,6 +82,17 @@ input:-webkit-autofill:active {
   opacity: 0.7;
   cursor: not-allowed;
   background-color: rgba(42, 42, 42, 0.6) !important;
+}
+
+/* Ensure text is visible in form controls */
+.form-control {
+  color: white !important;
+  caret-color: white;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1;
 }
 
 /* Button customization */
