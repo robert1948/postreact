@@ -37,15 +37,15 @@ const FeatureSection = () => {
 
   return (
     <section id="features" className="feature-section">
-      <Container>
+      <Container fluid className="px-2 px-md-3">
         <div className="section-header fade-in">
           <h2 className="text-gradient">Key Features</h2>
           <p className="section-subtitle">Discover what makes our platform stand out</p>
         </div>
 
-        <Row className="features-grid">
+        <Row className="features-grid mx-0">
           {features.map(feature => (
-            <Col xs={12} sm={12} md={6} lg={3} key={feature.id} className="mb-4 feature-column">
+            <Col xs={12} sm={12} md={6} lg={3} key={feature.id} className="mb-4 feature-column px-2">
               <div className={`feature-card fade-in-up ${feature.delay} hover-lift`}>
                 <div className="feature-icon">{feature.icon}</div>
                 <h3>{feature.title}</h3>

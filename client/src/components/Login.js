@@ -107,9 +107,9 @@ const Login = () => {
   };
 
   return (
-    <Container fluid className="py-5 login-container px-0">
+    <Container fluid className="py-5 login-container px-0 mobile-login-container">
       <Row className="justify-content-center mx-0">
-        <Col xs={12} sm={10} md={8} lg={6} className="px-0">
+        <Col xs={12} sm={10} md={8} lg={6} className="px-0 mobile-login-col">
           <Card className="auth-container shadow">
             <Card.Body>
               <Nav variant="tabs" className="mb-4">
@@ -221,7 +221,7 @@ const Login = () => {
                     variant="primary"
                     type="submit"
                     disabled={isLoading}
-                    className={isLoading ? 'loading' : ''}
+                    className={`form-submit-button ${isLoading ? 'loading' : ''}`}
                   >
                     {isLoading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
                   </Button>
