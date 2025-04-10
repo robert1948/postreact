@@ -1,9 +1,8 @@
 .feature-section {
   padding: var(--spacing-3xl) var(--spacing-xl);
   max-width: 1200px;
-  margin: 0 auto;
+  margin: var(--spacing-3xl) auto 0;
   text-align: center;
-  margin-top: var(--spacing-3xl);
 }
 
 .section-header {
@@ -11,15 +10,15 @@
 }
 
 .feature-section h2 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   margin-bottom: var(--spacing-md);
   font-weight: 700;
 }
 
 .section-subtitle {
   color: var(--neutral-400);
-  font-size: 1.2rem;
-  max-width: 600px;
+  font-size: 1.3rem;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -30,13 +29,14 @@
 .feature-card {
   position: relative;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.75rem;
   transition: all var(--transition) ease;
   border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
   z-index: 1;
   text-align: left;
+  font-size: 1.1rem;
 }
 
 .feature-card-bg {
@@ -45,7 +45,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
   z-index: -1;
   opacity: 0;
   transition: opacity var(--transition) ease;
@@ -63,8 +63,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
+  font-size: 1.5rem;
   border-radius: var(--radius-lg);
   background: rgba(99, 102, 241, 0.1);
   margin-bottom: var(--spacing-lg);
@@ -79,7 +80,7 @@
 }
 
 .feature-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-bottom: var(--spacing-md);
   color: white;
   transition: color var(--transition) ease;
@@ -91,83 +92,65 @@
 
 .feature-card p {
   color: var(--neutral-400);
-  line-height: 1.6;
-  font-size: 1rem;
+  line-height: 1.7;
+  font-size: 1.15rem;
 }
 
+/* ✅ Mobile Styles */
 @media (max-width: 768px) {
   .feature-section {
-    padding: var(--spacing-2xl) var(--spacing-lg);
-    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    margin-top: var(--spacing-xl);
   }
 
   .feature-section h2 {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
 
   .section-subtitle {
-    font-size: 1rem;
-  }
-
-  .feature-card {
-    height: 100%;
-    margin-bottom: var(--spacing-md);
-  }
-}
-
-@media (max-width: 768px) {
-  .feature-section {
-    padding: var(--spacing-xl) 0;
-    margin-top: var(--spacing-xl);
+    font-size: 1.1rem;
   }
 
   .features-grid {
     display: flex;
     flex-direction: column;
-    margin: 0 !important;
-    width: 100%;
   }
 
   .feature-column {
-    padding: 0.75rem !important;
-    margin-bottom: 1rem !important;
+    width: 100% !important;
+    margin-bottom: 1.25rem;
   }
 
   .feature-card {
-    padding: var(--spacing-xl) var(--spacing-lg);
-    text-align: center;
-    margin-bottom: 0;
     width: 100%;
     max-width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    height: auto;
+    text-align: center;
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: var(--spacing-lg);
   }
 
   .feature-icon {
     margin: 0 auto var(--spacing-lg);
-    width: 80px;
-    height: 80px;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 90px;
+    height: 90px;
+    font-size: 1.4rem;
   }
 
   .feature-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-md);
-    color: white;
+    font-size: 1.6rem;
     text-align: center;
     width: 100%;
   }
 
   .feature-card p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
     width: 100%;
   }

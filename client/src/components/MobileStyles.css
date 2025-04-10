@@ -1,5 +1,4 @@
 /* Mobile-specific styles with high specificity */
-/* Force mobile styles with !important */
 @media only screen and (max-width: 768px) {
   /* Full-width login container */
   .login-container.mobile-login-container {
@@ -28,31 +27,32 @@
 
   /* Card body padding */
   .card-body {
-    padding: 1.5rem 1rem !important;
+    padding: 1.75rem 1.25rem !important;
   }
 
-  /* Larger buttons at 80% width */
+  /* Larger buttons at 90% width */
   .btn, button, .form-submit-button, .oauth-button {
-    padding: 1rem 1.2rem !important;
-    font-size: 1.1rem !important;
-    width: 80% !important;
-    margin: 0.75rem auto !important;
+    padding: 1rem 1.25rem !important;
+    font-size: 1.15rem !important;
+    width: 90% !important;
+    margin: 1rem auto !important;
     display: block !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
   }
 
   /* Form controls */
   .form-control, .form-select {
-    padding: 0.9rem 1rem !important;
-    font-size: 1.1rem !important;
-    margin-bottom: 0.75rem !important;
+    padding: 1rem 1.2rem !important;
+    font-size: 1.15rem !important;
+    margin-bottom: 1rem !important;
     background-color: rgba(42, 42, 42, 0.9) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
   }
 
   /* Feature section */
   .feature-section {
-    padding: var(--spacing-xl) 0 !important;
+    padding: var(--spacing-2xl) var(--spacing-md) !important;
     margin-top: var(--spacing-xl) !important;
   }
 
@@ -60,38 +60,40 @@
   .features-grid {
     display: flex !important;
     flex-direction: column !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     width: 100% !important;
+    padding: 0 1rem !important;
   }
 
   /* Feature column */
   .feature-column {
-    padding: 0.75rem !important;
-    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
   /* Feature card */
   .feature-card {
-    padding: var(--spacing-xl) var(--spacing-lg) !important;
+    padding: 2rem 1.5rem !important;
     text-align: center !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 1.5rem !important;
     width: 100% !important;
     max-width: 100% !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    border-radius: var(--radius-xl) !important;
   }
 
   /* Feature icon */
   .feature-icon {
-    margin: 0 auto var(--spacing-lg) !important;
-    width: 80px !important;
-    height: 80px !important;
-    font-size: 1.2rem !important;
+    margin: 0 auto 1.25rem !important;
+    width: 90px !important;
+    height: 90px !important;
+    font-size: 1.5rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -99,8 +101,8 @@
 
   /* Feature card heading */
   .feature-card h3 {
-    font-size: 1.5rem !important;
-    margin-bottom: var(--spacing-md) !important;
+    font-size: 1.6rem !important;
+    margin-bottom: 1rem !important;
     color: white !important;
     text-align: center !important;
     width: 100% !important;
@@ -108,9 +110,9 @@
 
   /* Feature card paragraph */
   .feature-card p {
-    font-size: 1.1rem !important;
-    line-height: 1.6 !important;
-    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 1.2rem !important;
+    line-height: 1.75 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
     text-align: center !important;
     width: 100% !important;
   }

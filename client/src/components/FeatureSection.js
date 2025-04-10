@@ -102,14 +102,12 @@ const FeatureSection = () => {
         <Row className="features-grid mx-0">
           {features.map(feature => (
             <Col
-              xs={12}
-              sm={12}
-              md={6}
-              lg={3}
-              key={feature.id}
-              className="mb-4 feature-column px-2"
-              style={isMobile ? mobileStyles.featureColumn : {}}
-            >
+            xs={12}
+            key={feature.id}
+            className="mb-4 feature-column px-2"
+            style={mobileStyles.featureColumn}
+          >
+          
               <div
                 className={`feature-card fade-in-up ${feature.delay} hover-lift`}
                 style={isMobile ? mobileStyles.featureCard : {}}
