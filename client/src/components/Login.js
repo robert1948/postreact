@@ -4,6 +4,46 @@ import { Container, Row, Col, Form, Button, Nav, Alert, Card } from 'react-boots
 import authService from '../services/auth';
 import './Login.css';
 
+// Mobile styles
+const mobileStyles = {
+  container: {
+    padding: 0,
+    margin: 0,
+    maxWidth: '100%',
+    width: '100vw'
+  },
+  column: {
+    padding: 0,
+    width: '100%',
+    maxWidth: '100%'
+  },
+  card: {
+    borderRadius: 0,
+    margin: 0,
+    width: '100%',
+    border: 'none',
+    boxShadow: 'none'
+  },
+  cardBody: {
+    padding: '1.5rem 1rem'
+  },
+  button: {
+    padding: '1rem 1.2rem',
+    fontSize: '1.1rem',
+    width: '80%',
+    margin: '0.75rem auto',
+    display: 'block',
+    borderRadius: '8px'
+  },
+  formControl: {
+    padding: '0.9rem 1rem',
+    fontSize: '1.1rem',
+    marginBottom: '0.75rem',
+    backgroundColor: 'rgba(42, 42, 42, 0.9)',
+    border: '1px solid rgba(255, 255, 255, 0.2)'
+  }
+};
+
 const Login = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
@@ -106,12 +146,48 @@ const Login = () => {
     }
   };
 
+  // State to track if we're on mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Update isMobile state on component mount and window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Set initial value
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Force mobile layout update with key
+  React.useEffect(() => {
+    // Force rerender on component mount to apply mobile styles
+    setFormKey(Math.random().toString(36).substring(7));
+  }, []);
+
   return (
-    <Container fluid className="py-5 login-container px-0 mobile-login-container">
+    <Container
+      fluid
+      className="py-5 login-container px-0"
+      style={isMobile ? mobileStyles.container : {}}
+    >
       <Row className="justify-content-center mx-0">
-        <Col xs={12} sm={10} md={8} lg={6} className="px-0 mobile-login-col">
-          <Card className="auth-container shadow">
-            <Card.Body>
+        <Col
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          className="px-0"
+          style={isMobile ? mobileStyles.column : {}}
+        >
+          <Card
+            className="auth-container shadow"
+            style={isMobile ? mobileStyles.card : {}}
+          >
+            <Card.Body style={isMobile ? mobileStyles.cardBody : {}}>
               <Nav variant="tabs" className="mb-4">
                 <Nav.Item>
                   <Nav.Link
@@ -171,6 +247,7 @@ const Login = () => {
                       disabled={isLoading}
                       isInvalid={!!validationErrors.name}
                       autoComplete="new-password"
+                      style={isMobile ? mobileStyles.formControl : {}}
                     />
                     <Form.Control.Feedback type="invalid">
                       {validationErrors.name}
@@ -191,6 +268,7 @@ const Login = () => {
                     disabled={isLoading}
                     isInvalid={!!validationErrors.email}
                     autoComplete="new-password"
+                    style={isMobile ? mobileStyles.formControl : {}}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validationErrors.email}
@@ -210,6 +288,7 @@ const Login = () => {
                     disabled={isLoading}
                     isInvalid={!!validationErrors.password}
                     autoComplete="new-password"
+                    style={isMobile ? mobileStyles.formControl : {}}
                   />
                   <Form.Control.Feedback type="invalid">
                     {validationErrors.password}
@@ -222,6 +301,7 @@ const Login = () => {
                     type="submit"
                     disabled={isLoading}
                     className={`form-submit-button ${isLoading ? 'loading' : ''}`}
+                    style={isMobile ? mobileStyles.button : {}}
                   >
                     {isLoading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
                   </Button>
@@ -237,6 +317,7 @@ const Login = () => {
                       ? 'https://www.cape-control.com/api/auth/google'
                       : 'http://localhost:5000/api/auth/google'}
                     className="oauth-button google"
+                    style={isMobile ? mobileStyles.button : {}}
                   >
                     <div className="oauth-icon">G</div>
                     <span>Continue with Google</span>
