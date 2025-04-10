@@ -224,44 +224,62 @@ input:-webkit-autofill:active {
 }
 
 /* Responsive styles */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .login-container {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
   }
 
   .auth-container {
-    border-radius: 0;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    border: none !important;
+  }
+
+  .card-body {
+    padding: 1.5rem 1rem !important;
   }
 
   .nav-tabs .nav-link {
     padding: 0.75rem 1rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   /* Make buttons larger and 80% width */
   .form-control, .form-select {
-    padding: 0.8rem 1rem;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    padding: 0.9rem 1rem !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.75rem !important;
+    background-color: rgba(42, 42, 42, 0.9) !important;
   }
 
   .btn {
-    padding: 0.8rem 1.2rem;
-    font-size: 1.1rem;
-    width: 80%;
-    margin: 0.5rem auto;
-    display: block;
+    padding: 0.9rem 1.2rem !important;
+    font-size: 1.1rem !important;
+    width: 80% !important;
+    margin: 0.75rem auto !important;
+    display: block !important;
   }
 
   .oauth-button {
-    width: 80%;
-    margin: 0.5rem auto;
-    padding: 0.8rem 1.2rem;
-    font-size: 1.1rem;
+    width: 80% !important;
+    margin: 0.75rem auto !important;
+    padding: 0.9rem 1.2rem !important;
+    font-size: 1.1rem !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* Fix form groups */
+  .form-group {
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Fix form labels */
+  .form-label {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
   }
 }

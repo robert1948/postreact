@@ -45,7 +45,7 @@ const FeatureSection = () => {
 
         <Row className="features-grid">
           {features.map(feature => (
-            <Col xs={12} sm={12} md={6} lg={3} key={feature.id} className="mb-4">
+            <Col xs={12} sm={12} md={6} lg={3} key={feature.id} className="mb-4 feature-column">
               <div className={`feature-card fade-in-up ${feature.delay} hover-lift`}>
                 <div className="feature-icon">{feature.icon}</div>
                 <h3>{feature.title}</h3>

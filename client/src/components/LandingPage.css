@@ -1,3 +1,8 @@
+/* Mobile button styles */
+.mobile-btn {
+  width: 100%;
+}
+
 .landing-page {
   min-height: 100vh;
   background: var(--gradient-background);
@@ -471,20 +476,22 @@
   }
 
   .hero-buttons {
-    flex-direction: column;
+    flex-direction: column !important;
     gap: var(--spacing-md);
     width: 100%;
     margin: 0 auto;
+    align-items: center !important;
   }
 
   .hero-buttons .btn {
-    margin-right: 0;
-    margin-bottom: var(--spacing-md);
-    padding: 0.9rem 1.2rem;
-    font-size: 1.1rem;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-right: 0 !important;
+    margin-bottom: var(--spacing-md) !important;
+    padding: 0.9rem 1.2rem !important;
+    font-size: 1.1rem !important;
+    width: 80% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
   }
 
   .auth-container {

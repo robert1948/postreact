@@ -107,9 +107,9 @@ const Login = () => {
   };
 
   return (
-    <Container className="py-5 login-container">
-      <Row className="justify-content-center">
-        <Col xs={12} sm={10} md={8} lg={6} className="px-0 px-sm-3">
+    <Container fluid className="py-5 login-container px-0">
+      <Row className="justify-content-center mx-0">
+        <Col xs={12} sm={10} md={8} lg={6} className="px-0">
           <Card className="auth-container shadow">
             <Card.Body>
               <Nav variant="tabs" className="mb-4">

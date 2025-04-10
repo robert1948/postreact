@@ -15,20 +15,20 @@ const LandingPage = () => {
       <Header />
 
       <div className="hero-section">
-        <Container>
-          <Row className="align-items-center">
-            <Col lg={6} md={12} className="mb-5 mb-lg-0 text-center text-lg-start">
+        <Container fluid className="px-0 px-sm-3">
+          <Row className="align-items-center mx-0">
+            <Col lg={6} md={12} className="mb-5 mb-lg-0 text-center">
               <div className="hero-content">
                 <h1 className="fade-in-up">Welcome to <span className="text-gradient">CapeControl</span></h1>
                 <p className="fade-in-up delay-1 lead">Democratizing access to advanced AI capabilities</p>
-                <div className="hero-buttons fade-in-up delay-2 d-flex flex-column flex-sm-row flex-wrap gap-2 justify-content-center justify-content-lg-start">
-                  <Button href="#features" variant="primary" className="btn-pulse w-100 w-sm-auto">
+                <div className="hero-buttons fade-in-up delay-2 d-flex flex-column flex-wrap gap-2 justify-content-center">
+                  <Button href="#features" variant="primary" className="btn-pulse mobile-btn">
                     Explore Features <FiArrowRight className="ms-2" />
                   </Button>
-                  <Button as={Link} to="/register" variant="secondary" className="w-100 w-sm-auto">
+                  <Button as={Link} to="/register" variant="secondary" className="mobile-btn">
                     Register Now
                   </Button>
-                  <Button as={Link} to="/login" variant="outline-light" className="w-100 w-sm-auto">
+                  <Button as={Link} to="/login" variant="outline-light" className="mobile-btn">
                     Login
                   </Button>
                 </div>
