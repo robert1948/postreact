@@ -2,6 +2,13 @@
 
 A full-stack application with React frontend and Node.js backend, using PostgreSQL for data storage. CapeControl democratizes access to advanced AI capabilities.
 
+## Features
+
+- **Responsive Design**: Fully optimized for mobile devices using Bootstrap
+- **Dark Theme**: Modern dark theme with customizable appearance
+- **Authentication**: Secure login and registration with OAuth options
+- **Dashboard**: User-friendly dashboard for managing AI capabilities
+
 ## Development Setup
 
 ### Prerequisites
