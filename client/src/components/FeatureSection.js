@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiCpu, FiRefreshCw, FiBarChart2, FiShield } from 'react-icons/fi';
+import { Container, Row, Col } from 'react-bootstrap';
 import './FeatureSection.css';
 
 const FeatureSection = () => {
@@ -36,21 +37,25 @@ const FeatureSection = () => {
 
   return (
     <section id="features" className="feature-section">
-      <div className="section-header fade-in">
-        <h2 className="text-gradient">Key Features</h2>
-        <p className="section-subtitle">Discover what makes our platform stand out</p>
-      </div>
+      <Container>
+        <div className="section-header fade-in">
+          <h2 className="text-gradient">Key Features</h2>
+          <p className="section-subtitle">Discover what makes our platform stand out</p>
+        </div>
 
-      <div className="features-grid">
-        {features.map(feature => (
-          <div key={feature.id} className={`feature-card fade-in-up ${feature.delay} hover-lift`}>
-            <div className="feature-icon">{feature.icon}</div>
-            <h3>{feature.title}</h3>
-            <p>{feature.description}</p>
-            <div className="feature-card-bg"></div>
-          </div>
-        ))}
-      </div>
+        <Row className="features-grid">
+          {features.map(feature => (
+            <Col xs={12} sm={6} lg={3} key={feature.id} className="mb-4">
+              <div className={`feature-card fade-in-up ${feature.delay} hover-lift`}>
+                <div className="feature-icon">{feature.icon}</div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+                <div className="feature-card-bg"></div>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </section>
   );
 };

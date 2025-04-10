@@ -399,6 +399,7 @@
 
   .hero-buttons {
     justify-content: center;
+    width: 100%;
   }
 
   .about-section,
@@ -473,8 +474,15 @@
     flex-direction: column;
     gap: var(--spacing-md);
     width: 100%;
-    max-width: 300px;
     margin: 0 auto;
+  }
+
+  .hero-buttons .btn {
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    width: 100%;
   }
 
   .auth-container {

@@ -57,7 +57,7 @@ const Header = () => {
         <Navbar.Brand as={Link} to="/" className="logo fade-in-left">CapeControl</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleMobileMenu} />
         <Navbar.Collapse id="basic-navbar-nav" className={mobileMenuOpen ? 'show' : ''}>
-          <Nav className="ms-auto">
+          <Nav className="ms-auto mobile-nav">
             <Nav.Item>
               <Nav.Link
                 href="#features"
@@ -86,29 +86,29 @@ const Header = () => {
               </Nav.Link>
             </Nav.Item>
             {token ? (
-              <Nav.Item>
+              <Nav.Item className="action-item">
                 <Nav.Link
                   as={Link}
                   to="/dashboard"
                   className={`fade-in-down delay-4 ${isActive('/dashboard') ? 'active' : ''}`}
                   onClick={closeMenu}
                 >
-                  <Button variant="primary" className="btn-pulse">Dashboard</Button>
+                  <Button variant="primary" className="btn-pulse w-100">Dashboard</Button>
                 </Nav.Link>
               </Nav.Item>
             ) : (
-              <Nav.Item>
+              <Nav.Item className="action-item">
                 <Nav.Link
                   as={Link}
                   to="/login"
                   className={`fade-in-down delay-4 ${isActive('/login') ? 'active' : ''}`}
                   onClick={closeMenu}
                 >
-                  <Button variant="primary" className="btn-pulse">Login</Button>
+                  <Button variant="primary" className="btn-pulse w-100">Login</Button>
                 </Nav.Link>
               </Nav.Item>
             )}
-            <Nav.Item className="d-flex align-items-center ms-2 fade-in-down delay-5">
+            <Nav.Item className="d-flex align-items-center justify-content-center ms-2 fade-in-down delay-5 theme-toggle-item">
               <ThemeToggle />
             </Nav.Item>
           </Nav>

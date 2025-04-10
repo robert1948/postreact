@@ -17,24 +17,24 @@ const LandingPage = () => {
       <div className="hero-section">
         <Container>
           <Row className="align-items-center">
-            <Col lg={6} md={12}>
+            <Col lg={6} md={12} className="mb-5 mb-lg-0 text-center text-lg-start">
               <div className="hero-content">
                 <h1 className="fade-in-up">Welcome to <span className="text-gradient">CapeControl</span></h1>
                 <p className="fade-in-up delay-1 lead">Democratizing access to advanced AI capabilities</p>
-                <div className="hero-buttons fade-in-up delay-2 d-flex flex-wrap gap-2">
-                  <Button href="#features" variant="primary" className="btn-pulse">
+                <div className="hero-buttons fade-in-up delay-2 d-flex flex-column flex-sm-row flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                  <Button href="#features" variant="primary" className="btn-pulse w-100 w-sm-auto">
                     Explore Features <FiArrowRight className="ms-2" />
                   </Button>
-                  <Button as={Link} to="/register" variant="secondary">
+                  <Button as={Link} to="/register" variant="secondary" className="w-100 w-sm-auto">
                     Register Now
                   </Button>
-                  <Button as={Link} to="/login" variant="outline-light">
+                  <Button as={Link} to="/login" variant="outline-light" className="w-100 w-sm-auto">
                     Login
                   </Button>
                 </div>
               </div>
             </Col>
-            <Col lg={6} md={12}>
+            <Col lg={6} md={12} className="text-center">
               <div className="hero-image fade-in delay-3">
                 <div className="hero-image-container">
                   <div className="hero-image-glow"></div>
