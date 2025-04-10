@@ -120,12 +120,33 @@
     padding: var(--spacing-xl) var(--spacing-md);
   }
 
+  .features-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
   .feature-card {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg);
     text-align: center;
+    margin-bottom: var(--spacing-xl);
+    width: 100%;
+    max-width: 100%;
   }
 
   .feature-icon {
     margin: 0 auto var(--spacing-lg);
+    width: 80px;
+    height: 80px;
+    font-size: 1.2rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .feature-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
   }
 }

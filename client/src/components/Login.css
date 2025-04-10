@@ -225,12 +225,43 @@ input:-webkit-autofill:active {
 
 /* Responsive styles */
 @media (max-width: 576px) {
+  .login-container {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100%;
+  }
+
   .auth-container {
     border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
   }
 
   .nav-tabs .nav-link {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  /* Make buttons larger and 80% width */
+  .form-control, .form-select {
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
+    width: 80%;
+    margin: 0.5rem auto;
+    display: block;
+  }
+
+  .oauth-button {
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
   }
 }

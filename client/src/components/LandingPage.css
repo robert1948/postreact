@@ -479,10 +479,12 @@
 
   .hero-buttons .btn {
     margin-right: 0;
-    margin-bottom: var(--spacing-sm);
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    width: 100%;
+    margin-bottom: var(--spacing-md);
+    padding: 0.9rem 1.2rem;
+    font-size: 1.1rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .auth-container {
